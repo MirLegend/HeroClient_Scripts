@@ -23,7 +23,7 @@ local up_code
 ed.isDebug = true
 
 local up = pb_loader("up")()
-local down = pb_loader("cb")()
+local down = pb_loader("down")()
 local upmsg = up.up_msg
 local downmsg = down.down_msg
 
@@ -1469,7 +1469,7 @@ ListenEvent("SendMsgFail", OnSendMsgFail)
 
 function ziNetWorkInit()
 	print("ziNetWorkInit!")
-	GameApp.InitPb()
+	--GameApp.InitPb()
 end
 
 pcall(ziNetWorkInit)

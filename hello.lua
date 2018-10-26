@@ -328,9 +328,13 @@ ed.createAnimation = createAnimation;
 xpcall(function()
 	local ed = ed
 	ed.run_with_scene = true
+	print("1")
 	loadAllFiles()
+	print("2")
 	initFont()
+	print("3")
 	initGcTime()
+	print("4")
 	main()
 end, EDDebug)
 		
