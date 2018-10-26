@@ -1690,7 +1690,7 @@ local function refreshFirstTavern(self, type, times)
 end
 class.refreshFirstTavern = refreshFirstTavern
 local function useFreeTavern(self, type)
-  local record = self._tavern_record
+  local record = self._tavern_record or {}
   local bt = box_color_table
   for k, v in pairs(record) do
     if v._box_type == type or v._box_type == bt[type] then
