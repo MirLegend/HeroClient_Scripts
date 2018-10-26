@@ -444,11 +444,16 @@ function serverLogin:enterGame()
   if game_server_ip == nil then
     return
   end
-  print("enterGame================================= ip"..game_server_ip)
+  print("enterGame================================= ip: "..game_server_ip)
+  print("enterGame================================= port: "..game_server_port)
   CCUserDefault:sharedUserDefault():setStringForKey("lastservername", lastServerName)
   CCUserDefault:sharedUserDefault():flush()
 	local isLogined= true --libPlatformManager:getPlatform():getLogined()
-	local name="asd" --libPlatformManager:getPlatform():loginUin()
+	local name= panelui.usernamenick:getString()--libPlatformManager:getPlatform():loginUin()
+  print("enterGame================================= account: "..name)
+  ed.loginip = game_server_ip
+  ed.usr_account = name
+  ed.loginport = game_server_port
 	--print("login state is "..tostring(isLogined))
   if isLogined==true and name~=nil and name~="" then
 
@@ -1286,6 +1291,7 @@ function serverLogin:initServerListData()
 			return
 		end			
 		local tableOne={}
+    print("insert server name:"..oneServerTable[2])
 		tableOne.name=oneServerTable[2]
 		tableOne.ip=oneServerTable[3]
 		tableOne.port=tonumber(oneServerTable[4])

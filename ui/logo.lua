@@ -96,7 +96,8 @@ local function doLogin(self)
   --login._version = LegendGetLoginPwd();
   --login._languageid = languageId--add by xinghui
   --ed.send(login, "login")
-  ed.GameApp.loginServer("ziyu", "5321")
+  
+  ed.GameApp.loginServer(ed.usr_account, "5321")
   --FireEvent("LoginSuc")
 end
 class.doLogin = doLogin

@@ -48,7 +48,7 @@ function GameApp.loginServer(account, pwd)
 	g_accountName = account;
 	g_password = pwd
 	curserver = 1
-	GameApp.connectServer(serverIp, serverPort)
+	GameApp.connectServer(ed.loginip, ed.loginport)
 end
 
 function GameApp.connectServer(ip, port)

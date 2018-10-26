@@ -128,10 +128,10 @@ local main = function()
 	collectgarbage("setstepmul", 5000)
 	LegendLuaReset = LegendLuaReset or 0
 	if LegendPlatformFLAG==ed.PlatformCode.CC_PLATFORM_ANDROID and LegendLuaReset == 1 then
-		LegendLog("[hello.lua|main] go to ed.ui.platformlogo.create()")
+		print("[hello.lua|main] go to ed.ui.platformlogo.create()")
 		ed.pushScene(ed.ui.platformlogo.create())
 	else
-		LegendLog("[hello.lua|main] go to ed.ui.serverlogin.create()")
+		print("[hello.lua|main] go to ed.ui.serverlogin.create()")
 		ed.pushScene(ed.ui.serverlogin.create())
 		--ed.pushScene(ed.ui.logo.create(sessionId))
 		--ed.replaceScene(ed.ui.logo.create(sessionId))
