@@ -123,11 +123,13 @@ function serverLogin.selectUsername()
 	--LegendLog("=========================selelc username")
   --直接调用登录
 	--local isLogined=libPlatformManager:getPlatform():getLogined()
-	if isLogined==false then
-		libPlatformManager:getPlatform():login()
-	else
-		libPlatformManager:getPlatform():switchUsers()
-	end		
+	--if isLogined==false then
+		--libPlatformManager:getPlatform():login()
+    --local userId=libPlatformManager:getPlatform():loginUin()
+    --ed.Debug_Msg("selectUsername------------------------------  "..userId)
+	--else
+	--	libPlatformManager:getPlatform():switchUsers()
+	--end		
 end
 function serverLogin.selectLastServer()
   serverLogin.refreshCurrentServerInfo(lastServerName)
@@ -449,7 +451,7 @@ function serverLogin:enterGame()
   CCUserDefault:sharedUserDefault():setStringForKey("lastservername", lastServerName)
   CCUserDefault:sharedUserDefault():flush()
 	local isLogined= true --libPlatformManager:getPlatform():getLogined()
-	local name= panelui.usernamenick:getString()--libPlatformManager:getPlatform():loginUin()
+	local name= panelui.usernamenick:getText()--libPlatformManager:getPlatform():loginUin()
   print("enterGame================================= account: "..name)
   ed.loginip = game_server_ip
   ed.usr_account = name
@@ -959,19 +961,15 @@ serverLogin.scene=scene
       }
     },
 	    {
-      t = "Label",
-      base = {
-        name = "usernamenick",
-        text = "input",
-        size = 18
-      },
-      layout = {
-        anchor = ccp(0.5, 0.5),
-        position = ccp(300, 180)
-      },
-      config = {
-        color = ccc3(251, 206, 16)
-      }
+      t = "LoginEditBox",
+        base = {name = "usernamenick"},
+        config = {
+          editSize = CCSizeMake(460, 50),
+          maxLength = 55,
+          fontColor = ccc3(251, 206, 16),
+          fontSize = 18,
+          position = ccp(460, 180)
+        }
     },	
 	 {
       t = "Label",

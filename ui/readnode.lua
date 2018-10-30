@@ -539,6 +539,23 @@ function class:addEditBox(info)
 	end
 end
 
+function class:addLoginEditBox(info)
+	local edit = editBox:new(info)
+	local base = info.base
+	self.root:addChild(edit.edit, base.z or 0)
+	if self.panelLayer then
+		self.panelLayer:addEditBox(edit, info.base)
+	end
+	--self:set(edit.edit, info)
+	if base.name then
+		if base.array then
+			base.array[base.name] = edit.edit
+		elseif self.array then
+			self.array[base.name] = edit.edit
+		end
+	end
+end
+
 function class:addFcaEffect(info)
 	local scene = ed.getCurrentScene()
 	local scale

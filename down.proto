@@ -1,29 +1,36 @@
-package down;
+package client_downmsg;
+
+//s-c ·şÎñÆ÷ -> ¿Í»§¶Ë 91 - 6 //µÇÂ½³É¹¦£¬ ·µ»ØÓÃ»§ĞÅÏ¢
+message login_reply {
+    required uint32  _result        = 1;
+    optional user    _user          = 2;
+    required string  _time_zone     = 3; // ÓÃ»§Ê±Çø-±ê×¼Ê±Çø
+}
 
 ///////////////////////////////base ///////////////////////////////////////////
-// é€šç”¨ç»“æœ
-enum result {
-    success = 0;
-    fail    = 1;
-}
+// Í¨ÓÃ½á¹û
+//enum result {
+//    success = 0;
+//    fail    = 1;
+//}
 
-// æˆ˜æ–—ç»“æœ
-enum battle_result {
-    victory  = 0;
-    defeat   = 1;
-    canceled = 2;
-    timeout  = 3;
-}
+// Õ½¶·½á¹û
+//enum battle_result {
+//    victory  = 0;
+//    defeat   = 1;
+//    canceled = 2;
+//    timeout  = 3;
+//}
 
-// è´§å¸ç±»å‹
-enum money_type {
-    gold            = 1;        // é‡‘å¸
-    diamond         = 2;        // é’»çŸ³
-    tbc_point       = 3;        // è¿œå¾å¸
-    ladder_point    = 4;        // ç«æŠ€åœºå¸
-}
+// »õ±ÒÀàĞÍ
+//enum money_type {
+//    gold            = 1;        // ½ğ±Ò
+//    diamond         = 2;        // ×êÊ¯
+//    tbc_point       = 3;        // Ô¶Õ÷±Ò
+//    ladder_point    = 4;        // ¾º¼¼³¡±Ò
+//}
 
-// é›‡ä½£æ•°æ®
+// ¹ÍÓ¶Êı¾İ
 message hire_data {
     required uint32         _uid   = 1;
     required string         _name  = 2;
@@ -35,17 +42,17 @@ message hire_hero {
     required hero_dyna      _dyna       = 2;
 }
 
-enum hero_status {
-    idle    = 0;    // ç©ºé—²
-    hire    = 1;    // é›‡ä½£å…µ
-    mining  = 2;    // å®ˆçŸ¿
-}
+//enum hero_status {
+ //   idle    = 0;    // ¿ÕÏĞ
+//    hire    = 1;    // ¹ÍÓ¶±ø
+//    mining  = 2;    // ÊØ¿ó
+//}
 
-enum server_opt_result {
-    get_ok    = 0;    //get list
-    change_ok = 1;    //change server
-    fail      = 2;
-}
+//enum server_opt_result {
+ //   get_ok    = 0;    //get list
+ //   change_ok = 1;    //change server
+//    fail_op     = 2;
+//}
 
 //////////////////////////////////////////////////////////////////////////
 // header
@@ -64,63 +71,64 @@ message down_msg {
     optional sell_item_reply          _sell_item_reply           = 12;
     optional fragment_compose_reply   _fragment_compose_reply    = 13;
     optional hero_equip_upgrade_reply _hero_equip_upgrade_reply  = 14;
-    optional trigger_task_reply       _trigger_task_reply        = 15;  // è§¦å‘ä»»åŠ¡çš„è¿”å›
-    optional require_rewards_reply    _require_rewards_reply     = 16;  // è¯·æ±‚å¥–åŠ±çš„è¿”å›
-    optional trigger_job_reply        _trigger_job_reply         = 17;  // è§¦å‘æ¯æ—¥æ´»åŠ¨çš„è¿”å›
-    optional job_rewards_reply        _job_rewards_reply         = 18;  // é¢†å–æ¯æ—¥æ´»åŠ¨å¥–åŠ±çš„è¿”å›
-    optional reset_elite_reply        _reset_elite_reply         = 19;  // ç²¾è‹±å…³å¡æ¬¡æ•°é‡ç½®
-    optional sweep_stage_reply        _sweep_stage_reply         = 20;  // å…³å¡æ‰«è¡çš„è¿”å›
-    optional tavern_draw_reply        _tavern_draw_reply         = 21;  // é…’é¦†æŠ½å¥–å›å¤
-    optional sync_skill_stren_reply   _sync_skill_stren_reply    = 22;  // æŠ€èƒ½å‡çº§ä½“åŠ›å€¼æ¶ˆæ¯
-    optional query_data_reply         _query_data_reply          = 23;  // å¢é‡æŸ¥è¯¢
-    optional hero_evolve_reply        _hero_evolve_reply         = 24;  // è‹±é›„è¿›åŒ–çš„è¿”å›
+    optional trigger_task_reply       _trigger_task_reply        = 15;  // ´¥·¢ÈÎÎñµÄ·µ»Ø
+    optional require_rewards_reply    _require_rewards_reply     = 16;  // ÇëÇó½±ÀøµÄ·µ»Ø
+    optional trigger_job_reply        _trigger_job_reply         = 17;  // ´¥·¢Ã¿ÈÕ»î¶¯µÄ·µ»Ø
+    optional job_rewards_reply        _job_rewards_reply         = 18;  // ÁìÈ¡Ã¿ÈÕ»î¶¯½±ÀøµÄ·µ»Ø
+    optional reset_elite_reply        _reset_elite_reply         = 19;  // ¾«Ó¢¹Ø¿¨´ÎÊıÖØÖÃ
+    optional sweep_stage_reply        _sweep_stage_reply         = 20;  // ¹Ø¿¨É¨µ´µÄ·µ»Ø
+    optional tavern_draw_reply        _tavern_draw_reply         = 21;  // ¾Æ¹İ³é½±»Ø¸´
+    optional sync_skill_stren_reply   _sync_skill_stren_reply    = 22;  // ¼¼ÄÜÉı¼¶ÌåÁ¦ÖµÏûÏ¢
+    optional query_data_reply         _query_data_reply          = 23;  // ÔöÁ¿²éÑ¯
+    optional hero_evolve_reply        _hero_evolve_reply         = 24;  // Ó¢ĞÛ½ø»¯µÄ·µ»Ø
     optional sync_vitality_reply      _sync_vitality_reply       = 25;
-    optional user_check               _user_check                = 26;  // ç”¨äºç»™å®¢æˆ·ç«¯æ ¡éªŒæ•°æ®ä¸€è‡´æ€§
-    optional tutorial_reply           _tutorial_reply            = 27;  // è®¾ç½®æ–°æ‰‹å¼•å¯¼çš„è¿”å›
+    optional user_check               _user_check                = 26;  // ÓÃÓÚ¸ø¿Í»§¶ËĞ£ÑéÊı¾İÒ»ÖÂĞÔ
+    optional tutorial_reply           _tutorial_reply            = 27;  // ÉèÖÃĞÂÊÖÒıµ¼µÄ·µ»Ø
     optional error_info               _error_info                = 28;
-    optional ladder_reply             _ladder_reply              = 29;  // pvpå¤©æ¢¯
-    optional set_name_reply           _set_name_reply            = 30;  // è®¾ç½®åå­—
-    optional midas_reply              _midas_reply               = 31;  // ç‚¹é‡‘æ‰‹
-    optional open_shop_reply          _open_shop_reply           = 32;  // æ‰“å¼€å•†åº—
-    optional charge_reply             _charge_reply              = 33;  // å……å€¼å›å¤
-    optional sdk_login_reply          _sdk_login_reply           = 34;  // SDKç™»é™†çš„è¿”å›
-    optional set_avatar_reply         _set_avatar_reply          = 35;  // è®¾ç½®å¤´åƒ
-    optional notify_msg               _notify_msg                = 36;  // ç©å®¶çš„é€šçŸ¥
-    optional ask_daily_login_reply    _ask_daily_login_reply     = 37;  // é¢†å–æ¯æ—¥ç™»é™†å¥–åŠ±
-    optional tbc_reply                _tbc_reply                 = 38;  // ç‡ƒçƒ§çš„è¿œå¾
-    optional get_maillist_reply       _get_maillist_reply        = 39;  // è·å–é‚®ä»¶åˆ—è¡¨
-    optional read_mail_reply          _read_mail_reply           = 40;  // å¤„ç†é‚®ä»¶çš„è¿”å›
-    optional uint32                   _svr_time                  = 41;  // æœåŠ¡å™¨æ—¶é—´
+    optional ladder_reply             _ladder_reply              = 29;  // pvpÌìÌİ
+    optional set_name_reply           _set_name_reply            = 30;  // ÉèÖÃÃû×Ö
+    optional midas_reply              _midas_reply               = 31;  // µã½ğÊÖ
+    optional open_shop_reply          _open_shop_reply           = 32;  // ´ò¿ªÉÌµê
+    optional charge_reply             _charge_reply              = 33;  // ³äÖµ»Ø¸´
+    optional sdk_login_reply          _sdk_login_reply           = 34;  // SDKµÇÂ½µÄ·µ»Ø
+    optional set_avatar_reply         _set_avatar_reply          = 35;  // ÉèÖÃÍ·Ïñ
+    optional notify_msg               _notify_msg                = 36;  // Íæ¼ÒµÄÍ¨Öª
+    optional ask_daily_login_reply    _ask_daily_login_reply     = 37;  // ÁìÈ¡Ã¿ÈÕµÇÂ½½±Àø
+    optional tbc_reply                _tbc_reply                 = 38;  // È¼ÉÕµÄÔ¶Õ÷
+    optional get_maillist_reply       _get_maillist_reply        = 39;  // »ñÈ¡ÓÊ¼şÁĞ±í
+    optional read_mail_reply          _read_mail_reply           = 40;  // ´¦ÀíÓÊ¼şµÄ·µ»Ø
+    optional uint32                   _svr_time                  = 41;  // ·şÎñÆ÷Ê±¼ä
     optional get_vip_gift_reply       _get_vip_gift_reply        = 42;
-    optional chat_reply               _chat_reply                = 43;  // èŠå¤©
+    optional chat_reply               _chat_reply                = 43;  // ÁÄÌì
     optional cdkey_gift_reply         _cdkey_gift_reply          = 44;
-    optional guild_reply              _guild_reply               = 45;  // å…¬ä¼š
-    optional ask_magicsoul_reply      _ask_magicsoul_reply       = 46;  // é­‚åŒ£
-    optional activity_infos           _ask_activity_info_reply   = 47;  // æŸ¥è¯¢è¿”åˆ©æ´»åŠ¨å›å¤
-    optional excavate_reply           _excavate_reply            = 48;  // å®è—
-    optional system_setting_reply     _system_setting_reply      = 49;   // ç³»ç»Ÿè®¾ç½®
-    optional query_split_data_reply   _query_split_data_reply    = 50;   // æŸ¥è¯¢è‹±é›„åˆ†è§£æ´»åŠ¨ä¿¡æ¯
-    optional query_split_return_reply _query_split_return_reply  = 51; // æŸ¥è¯¢åˆ†è§£è¿”è¿˜
-    optional split_hero_reply         _split_hero_reply          = 52;   // åˆ†è§£è‹±é›„
-    optional worldcup_reply           _worldcup_reply            = 53; // ä¸–ç•Œæ¯æ´»åŠ¨
-    optional battle_check_fail        _battle_check_fail         = 54;   // æˆ˜æ–—æ ¡éªŒå¤±è´¥
-    optional query_replay             _query_replay              = 55; // æŸ¥è¯¢æˆ˜æ–—å½•åƒå›å¤
-    optional super_link               _super_link                = 56; // è¶…é“¾æ¥è·³è½¬
-    optional query_ranklist_reply     _query_ranklist_reply      = 57; // æŸ¥è¯¢æ’è¡Œæ¦œä¿¡æ¯
-    // éœ€è¦æ”¹åŠ¨record.hrl:down_msg
-    // éœ€è¦æ”¹åŠ¨mysql iAction
-    optional change_server_reply      _change_server_reply       = 58;  // é€‰æœ
-    optional activity_info_reply		_activity_info_reply	= 59;	//æ´»åŠ¨ids
-	optional activity_lotto_info_reply _activity_lotto_info_reply = 60;	//è´¢ç¥åˆ°æ´»åŠ¨
-	optional activity_lotto_reward_reply _activity_lotto_reward_reply = 61;//è´¢ç¥åˆ°å¥–åŠ±ä¿¡æ¯
-	optional activity_bigpackage_info_reply _activity_bigpackage_info_reply = 62;//åœ£è¯å¤§ç¤¼åŒ…ä¿¡æ¯
-	optional activity_bigpackage_reward_reply _activity_bigpackage_reward_reply = 63;//åœ£è¯å¥–åŠ±ä¿¡æ¯
-	optional activity_bigpackage_reset_reply _activity_bigpackage_reset_reply = 64;//é‡ç½®æ¬¡æ•°
-    // å¢åŠ Facebook å…³æ³¨
-    optional fb_attention_reply       _fb_attention_reply       = 300;  // Facebookå…³æ³¨
-    optional continue_pay_reply       _continue_pay_reply       = 302;  // è¿ç»­å……å€¼
-	optional recharge_rebate_reply    _recharge_rebate_reply       = 303;  // å……å€¼è¿”åˆ©
-	optional every_day_happy_reply    _every_day_happy_reply       = 304;  // å¤©å¤©ä¹
+    optional guild_reply              _guild_reply               = 45;  // ¹«»á
+    optional ask_magicsoul_reply      _ask_magicsoul_reply       = 46;  // »êÏ»
+    optional activity_infos           _ask_activity_info_reply   = 47;  // ²éÑ¯·µÀû»î¶¯»Ø¸´
+    optional excavate_reply           _excavate_reply            = 48;  // ±¦²Ø
+    optional system_setting_reply     _system_setting_reply      = 49;   // ÏµÍ³ÉèÖÃ
+    optional query_split_data_reply   _query_split_data_reply    = 50;   // ²éÑ¯Ó¢ĞÛ·Ö½â»î¶¯ĞÅÏ¢
+    optional query_split_return_reply _query_split_return_reply  = 51; // ²éÑ¯·Ö½â·µ»¹
+    optional split_hero_reply         _split_hero_reply          = 52;   // ·Ö½âÓ¢ĞÛ
+    optional worldcup_reply           _worldcup_reply            = 53; // ÊÀ½ç±­»î¶¯
+    optional battle_check_fail        _battle_check_fail         = 54;   // Õ½¶·Ğ£ÑéÊ§°Ü
+    optional query_replay             _query_replay              = 55; // ²éÑ¯Õ½¶·Â¼Ïñ»Ø¸´
+    optional super_link               _super_link                = 56; // ³¬Á´½ÓÌø×ª
+    optional query_ranklist_reply     _query_ranklist_reply      = 57; // ²éÑ¯ÅÅĞĞ°ñĞÅÏ¢
+    optional request_guild_log_reply  _request_guild_log_reply   = 65;  // ÇëÇó¹«»áÈÕÖ¾
+    // ĞèÒª¸Ä¶¯record.hrl:down_msg
+    // ĞèÒª¸Ä¶¯mysql iAction
+    optional change_server_reply      _change_server_reply       = 58;  // Ñ¡·ş
+    optional activity_info_reply		_activity_info_reply	= 59;	//»î¶¯ids
+	optional activity_lotto_info_reply _activity_lotto_info_reply = 60;	//²ÆÉñµ½»î¶¯
+	optional activity_lotto_reward_reply _activity_lotto_reward_reply = 61;//²ÆÉñµ½½±ÀøĞÅÏ¢
+	optional activity_bigpackage_info_reply _activity_bigpackage_info_reply = 62;//Ê¥µ®´óÀñ°üĞÅÏ¢
+	optional activity_bigpackage_reward_reply _activity_bigpackage_reward_reply = 63;//Ê¥µ®½±ÀøĞÅÏ¢
+	optional activity_bigpackage_reset_reply _activity_bigpackage_reset_reply = 64;//ÖØÖÃ´ÎÊı
+    // Ôö¼ÓFacebook ¹Ø×¢
+    optional fb_attention_reply       _fb_attention_reply       = 300;  // Facebook¹Ø×¢
+    optional continue_pay_reply       _continue_pay_reply       = 302;  // Á¬Ğø³äÖµ
+	optional recharge_rebate_reply    _recharge_rebate_reply       = 303;  // ³äÖµ·µÀû
+	optional every_day_happy_reply    _every_day_happy_reply       = 304;  // ÌìÌìÀÖ
 }
 
 message system_setting_reply{
@@ -130,7 +138,7 @@ message system_setting_reply{
 }
 
 message system_setting_change{
-    required result _result = 1;
+    required uint32 _result = 1;
 }
 
 message system_setting_request{
@@ -138,26 +146,20 @@ message system_setting_request{
 }
 
 message system_setting_item{
-    enum setting_status {
-        on    = 1;
-        off   = 2;
-    }
+    //enum setting_status {
+    //    on    = 1;
+    //    off   = 2;
+    //}
     required string  key = 1;
-    required setting_status value = 2;
+    required uint32 value = 2;
 }
 
 message global_config {
-    optional uint32 _hero_split_ending = 1; // è‹±é›„åˆ†è§£æ´»åŠ¨ç»“æŸæ—¶é—´
-}
-
-message login_reply {
-    required result  _result        = 1;
-    optional user    _user          = 2;
-    required string  _time_zone     = 3; // ç”¨æˆ·æ—¶åŒº-æ ‡å‡†æ—¶åŒº
+    optional uint32 _hero_split_ending = 1; // Ó¢ĞÛ·Ö½â»î¶¯½áÊøÊ±¼ä
 }
 
 message sdk_login_reply {
-    required result     _result       = 1 [default = fail];
+    required uint32     _result       = 1 ;
     required string     _uin          = 2;
     optional string     _access_token = 3;
     optional string     _recharge_url = 4;
@@ -177,288 +179,290 @@ message enter_stage_reply {
 }
 
 message activity_info_reply {
-	repeated last_activity_info 	_last_activity_info				= 1;//å¼€å¯æ´»åŠ¨çš„id
+	repeated last_activity_info 	_last_activity_info				= 1;//¿ªÆô»î¶¯µÄid
 }
 
 message last_activity_info {
     required string  _group_id                  = 1;//grouop id
-	repeated uint32 	_activity_ids				= 2;//å¼€å¯çš„è¿‘æœŸæ´»åŠ¨çš„id
+	repeated uint32 	_activity_ids				= 2;//¿ªÆôµÄ½üÆÚ»î¶¯µÄid
 }
 
-//è´¢ç¥åˆ°æ´»åŠ¨ä¿¡æ¯
+//²ÆÉñµ½»î¶¯ĞÅÏ¢
 message activity_lotto_info_reply {
-	required uint32 _diamond_num			 = 1;//ç°æœ‰é’»çŸ³æ•°
-	required uint32 _current_step		 = 2;//å½“å‰ç¬¬å‡ å±‚
-	required uint32 _need_diamond_num	 = 3;//éœ€è¦é’»çŸ³æ•°
-	required uint32 _win_diamond_num		 = 4;//èµ¢å¾—é’»çŸ³æ•°
-	required uint32 _remain_time		 = 5;//å‰©ä½™æ—¶é—´
-	repeated string _broadcast_texts	 = 6;//å¹¿æ’­æ–‡æœ¬
+	required uint32 _diamond_num			 = 1;//ÏÖÓĞ×êÊ¯Êı
+	required uint32 _current_step		 = 2;//µ±Ç°µÚ¼¸²ã
+	required uint32 _need_diamond_num	 = 3;//ĞèÒª×êÊ¯Êı
+	required uint32 _win_diamond_num		 = 4;//Ó®µÃ×êÊ¯Êı
+	required uint32 _remain_time		 = 5;//Ê£ÓàÊ±¼ä
+	repeated string _broadcast_texts	 = 6;//¹ã²¥ÎÄ±¾
 }
-//è´¢ç¥åˆ°è·å¾—å¥–åŠ±
+//²ÆÉñµ½»ñµÃ½±Àø
 message activity_lotto_reward_reply{
-	required uint32 _status				 = 1;//1:ä»£è¡¨æˆåŠŸï¼Œ0ï¼šä»£è¡¨é’»çŸ³ä¸å¤Ÿ
-	required uint32 _reward_diamon_num	 = 2;//è·å¾—çš„å¥–åŠ±æ•°ç›®
-	required uint32 _have_next_round		 = 3;//æ˜¯å¦æœ‰ä¸‹ä¸€æ¬¡1ï¼šæœ‰ï¼Œ0ï¼šæ²¡æœ‰
-	optional uint32 _need_diamond_num	 = 4;//ä¸‹ä¸€æ¬¡éœ€è¦çš„é’»çŸ³æ•°ç›®
-	required uint32 _diamond_num			 = 5;//ç°æœ‰é’»çŸ³æ•°
+	required uint32 _status				 = 1;//1:´ú±í³É¹¦£¬0£º´ú±í×êÊ¯²»¹»
+	required uint32 _reward_diamon_num	 = 2;//»ñµÃµÄ½±ÀøÊıÄ¿
+	required uint32 _have_next_round		 = 3;//ÊÇ·ñÓĞÏÂÒ»´Î1£ºÓĞ£¬0£ºÃ»ÓĞ
+	optional uint32 _need_diamond_num	 = 4;//ÏÂÒ»´ÎĞèÒªµÄ×êÊ¯ÊıÄ¿
+	required uint32 _diamond_num			 = 5;//ÏÖÓĞ×êÊ¯Êı
 }
 
-//åœ£è¯å¤§ç¤¼åŒ…æ´»åŠ¨ä¿¡æ¯
+//Ê¥µ®´óÀñ°ü»î¶¯ĞÅÏ¢
 message activity_bigpackage_info_reply{
-	required uint32 _people_count 		= 1;//å‚ä¸äººæ•°ï¼ˆåˆ†æ•°ï¼‰
-	required uint32 _remain_times		= 2;//å‰©ä½™ç‚¹å‡»æ¬¡æ•°
-	required uint32 _next_reset_price	= 3;//ä¸‹æ¬¡é‡ç½®æ¶ˆè€—
-	required uint32 _current_ranking	= 4;//å½“å‰æ’å
-	repeated uint32 _get_box_ids		= 5;//å·²ç»è·å¾—çš„ç®±å­å¥–åŠ±id
-	required uint32 _distance_score_20	= 6;//è·ç¦»å‰20åå¤šå°‘åˆ†
+	required uint32 _people_count 		= 1;//²ÎÓëÈËÊı£¨·ÖÊı£©
+	required uint32 _remain_times		= 2;//Ê£Óàµã»÷´ÎÊı
+	required uint32 _next_reset_price	= 3;//ÏÂ´ÎÖØÖÃÏûºÄ
+	required uint32 _current_ranking	= 4;//µ±Ç°ÅÅÃû
+	repeated uint32 _get_box_ids		= 5;//ÒÑ¾­»ñµÃµÄÏä×Ó½±Àøid
+	required uint32 _distance_score_20	= 6;//¾àÀëÇ°20Ãû¶àÉÙ·Ö
 }
 
-//åœ£è¯å¤§ç¤¼åŒ…å¥–åŠ±ä¿¡æ¯
+//Ê¥µ®´óÀñ°ü½±ÀøĞÅÏ¢
 message activity_bigpackage_reward_reply{
-	required uint32 _status 				= 1;//æŠ½å¥–æˆåŠŸï¼Œ1ï¼šæˆåŠŸï¼Œ0ï¼šå¤±è´¥
-	repeated activity_reward _rewards  	= 2;  // æ´»åŠ¨å¥–åŠ±
+	required uint32 _status 				= 1;//³é½±³É¹¦£¬1£º³É¹¦£¬0£ºÊ§°Ü
+	repeated activity_reward _rewards  	= 2;  // »î¶¯½±Àø
 	repeated uint32 _item_ids   = 3;  // <<amount:11, id:10>>
 	required uint32 _people_count	= 4;//
-	required uint32 _current_ranking	= 5;//å½“å‰æ’å
-	required uint32 _distance_score_20	= 6;//è·ç¦»å‰20åå¤šå°‘åˆ†
+	required uint32 _current_ranking	= 5;//µ±Ç°ÅÅÃû
+	required uint32 _distance_score_20	= 6;//¾àÀëÇ°20Ãû¶àÉÙ·Ö
 }
-//åœ£è¯å¤§ç¤¼åŒ…é‡ç½®
+//Ê¥µ®´óÀñ°üÖØÖÃ
 message activity_bigpackage_reset_reply{
-	required uint32 _status 				= 1;//é‡ç½®æˆåŠŸï¼Œ1ï¼šæˆåŠŸï¼Œ0ï¼šé’»çŸ³ä¸å¤Ÿ
-	required uint32 _next_reset_price	= 2;//ä¸‹æ¬¡é‡ç½®æ¶ˆè€—
+	required uint32 _status 				= 1;//ÖØÖÃ³É¹¦£¬1£º³É¹¦£¬0£º×êÊ¯²»¹»
+	required uint32 _next_reset_price	= 2;//ÏÂ´ÎÖØÖÃÏûºÄ
 }
 // stage.erl
 message exit_stage_reply {
-    enum exit_stage_result {
-        known   = 0;
-        unknown = 1;
-    }
-    required exit_stage_result  _result = 1 [default = known];
+    //enum exit_stage_result {
+    //    known   = 0;
+    //    unknown = 1;
+    //}
+    required uint32  _result = 1 ;
     optional user_shop          _shop   = 2; // maybe a shop
-    optional star_shop          _sshop  = 3; // æœºæªå…µå•†åº—
+    optional star_shop          _sshop  = 3; // »úÇ¹±øÉÌµê
 }
 
 message hero_upgrade_reply {
-    required result     _result = 1 [default = fail];
+    required uint32     _result = 1 ;
     optional hero       _hero   = 2;  //
-    repeated uint32     _items  = 3;  // è¿”è¿˜çš„ç‰©å“åˆ—è¡¨ <<amount:11, id:10>>
-    //åè®®ä¿®æ”¹ï¼å¦‚æœç»“æœæ˜¯successï¼Œåˆ™æœåŠ¡å™¨é‡ç½®è¿™ä¸ªè‹±é›„çš„ä¿¡æ¯
+    repeated uint32     _items  = 3;  // ·µ»¹µÄÎïÆ·ÁĞ±í <<amount:11, id:10>>
+    //Ğ­ÒéĞŞ¸Ä£¡Èç¹û½á¹ûÊÇsuccess£¬Ôò·şÎñÆ÷ÖØÖÃÕâ¸öÓ¢ĞÛµÄĞÅÏ¢
 }
 
 message equip_synthesis_reply {
-    required result     _result = 1 [default = fail];
+    required uint32     _result = 1 ;
 }
 
 message wear_equip_reply {
-    required result     _result = 1 [default = fail];
+    required uint32     _result = 1 ;
     required uint32     _gs     = 2;
 }
 
 message sync_vitality_reply {
-    required vitality _vitality = 1;
+    required vitality _vitality     = 1;
+    required vitality _shadow_runes = 2;  // ºÚ°µ·ûÎÄ
 }
 
 message consume_item_reply {
-    required hero _hero = 1;    // åƒç»éªŒä¸¹åï¼ŒæœåŠ¡å™¨é‡ç½®å®¢æˆ·ç«¯çš„è‹±é›„ä¿¡æ¯
+    required hero _hero = 1;    // ³Ô¾­Ñéµ¤ºó£¬·şÎñÆ÷ÖØÖÃ¿Í»§¶ËµÄÓ¢ĞÛĞÅÏ¢
 }
 
-// æ™®é€šå•†åº—ã€åœ°ç²¾ã€é»‘å¸‚
+// ÆÕÍ¨ÉÌµê¡¢µØ¾«¡¢ºÚÊĞ
 message user_shop {
-    required uint32  _id                        = 1; // shopidï¼Œå¦‚æœä¸º0çš„è¯è¡¨ç¤ºæ²¡æœ‰å•†åº—
-    optional uint32  _last_auto_refresh_time    = 2; // ä¸Šæ¬¡è‡ªåŠ¨åˆ·æ–°çš„æ—¶é—´ï¼Œ0è¡¨ç¤ºä¸ä¼šè‡ªåŠ¨åˆ·æ–°
+    required uint32  _id                        = 1; // shopid£¬Èç¹ûÎª0µÄ»°±íÊ¾Ã»ÓĞÉÌµê
+    optional uint32  _last_auto_refresh_time    = 2; // ÉÏ´Î×Ô¶¯Ë¢ĞÂµÄÊ±¼ä£¬0±íÊ¾²»»á×Ô¶¯Ë¢ĞÂ
     optional uint32  _expire_time               = 3; // expire time left, 0: never expire
-    optional uint32  _last_manual_refresh_time  = 4; // ä¸Šæ¬¡æ‰‹åŠ¨åˆ·æ–°æ—¶é—´
-    optional uint32  _today_times               = 5; // ä»Šæ—¥æ‰‹åŠ¨åˆ·æ–°çš„æ¬¡æ•°
-    repeated goods   _current_goods             = 6; // åˆ·å‡ºæ¥çš„å•†åº—ç‰©ä»¶
+    optional uint32  _last_manual_refresh_time  = 4; // ÉÏ´ÎÊÖ¶¯Ë¢ĞÂÊ±¼ä
+    optional uint32  _today_times               = 5; // ½ñÈÕÊÖ¶¯Ë¢ĞÂµÄ´ÎÊı
+    repeated goods   _current_goods             = 6; // Ë¢³öÀ´µÄÉÌµêÎï¼ş
 }
 
-// æ˜Ÿé™…å•†åº—
+// ĞÇ¼ÊÉÌµê
 message star_shop {
-    required uint32     _id                        = 1; // shopidï¼Œå¦‚æœä¸º0çš„è¯è¡¨ç¤ºæ²¡æœ‰å•†åº—
+    required uint32     _id                        = 1; // shopid£¬Èç¹ûÎª0µÄ»°±íÊ¾Ã»ÓĞÉÌµê
     optional uint32     _expire_time               = 2; // expire time left, 0: never expire
-    repeated star_goods _star_goods                = 3; // æ˜Ÿé™…å•†åº—ç‰©å“
+    repeated star_goods _star_goods                = 3; // ĞÇ¼ÊÉÌµêÎïÆ·
 }
 
-// è´­ä¹°ç‰©å“çš„åé¦ˆ
+// ¹ºÂòÎïÆ·µÄ·´À¡
 message shop_consume_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1 ;
 }
 
-// å‡çº§æŠ€èƒ½çš„åé¦ˆ
+// Éı¼¶¼¼ÄÜµÄ·´À¡
 message skill_levelup_reply {
-    required result     _result = 1 [default = fail];
+    required uint32     _result = 1 ;
     required uint32     _gs     = 2;
 }
 
 
-// å–ä¸œè¥¿çš„åé¦ˆï¼Œè€ƒè™‘åˆ°æœ‰å¯èƒ½å­˜åœ¨ä¸èƒ½å–çš„è£…å¤‡ï¼Œè¿˜æ˜¯è¿”å›æŠŠ
+// Âô¶«Î÷µÄ·´À¡£¬¿¼ÂÇµ½ÓĞ¿ÉÄÜ´æÔÚ²»ÄÜÂôµÄ×°±¸£¬»¹ÊÇ·µ»Ø°Ñ
 message sell_item_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1 ;
 }
 
 
-// ç¢ç‰‡åˆæˆçš„è¿”å›
+// ËéÆ¬ºÏ³ÉµÄ·µ»Ø
 message fragment_compose_reply {
-    required result     _result = 1 [default = fail];
+    required uint32     _result = 1 ;
 }
 
-// è‹±é›„èº«ä¸Šè£…å¤‡è¿›é˜¶çš„è¿”å›
+// Ó¢ĞÛÉíÉÏ×°±¸½ø½×µÄ·µ»Ø
 message hero_equip_upgrade_reply {
-    required result     _result = 1 [default = fail];
-    optional hero       _hero   = 2;        // æˆåŠŸåˆ™è¿”å›å®Œæ•´ä¿¡æ¯ï¼Œå¤±è´¥åˆ™æ— æ•ˆ
+    required uint32     _result = 1 ;
+    optional hero       _hero   = 2;        // ³É¹¦Ôò·µ»ØÍêÕûĞÅÏ¢£¬Ê§°ÜÔòÎŞĞ§
 }
 
-// è®¾ç½®æ–°æ‰‹å¼•å¯¼çš„è¿”å›
+// ÉèÖÃĞÂÊÖÒıµ¼µÄ·µ»Ø
 message tutorial_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1;
 }
 
 message error_info {
-  enum exit {
-      noneed  = 0;
-      force   = 1;
-  }
+  //enum exit {
+  //    noneed  = 0;
+  //    force   = 1;
+  //}
   required string _info = 1;
-  optional exit   _exit = 2 [default = noneed];
+  optional uint32   _exit = 2 ;
 }
 
 //-------------------------------------------------------------------------------
 
 message goods {
-    enum price_type {
-        gold          = 0;
-        diamond       = 1;
-        crusadepoint  = 2;
-        arenapoint    = 3;
-        guildpoint    = 4;
-    }
+    //enum price_type {
+    //    gold          = 0;
+    //    diamond       = 1;
+    //    crusadepoint  = 2;
+    //    arenapoint    = 3;
+    //    guildpoint    = 4;
+    //}
 
-    required uint32       _id     = 1; // ç‰©å“ID
-    required uint32       _amount = 2; // ç‰©å“æ•°é‡
-    required price_type   _type   = 3; // ä»·æ ¼ç±»å‹
-    required uint32       _price  = 4; // ç‰©å“å•ä»·
-    required uint32       _is_sale =5; // æ˜¯å¦æ‰“æŠ˜
+    required uint32       _id     = 1; // ÎïÆ·ID
+    required uint32       _amount = 2; // ÎïÆ·ÊıÁ¿
+    required uint32   _type   = 3; // ¼Û¸ñÀàĞÍ
+    required uint32       _price  = 4; // ÎïÆ·µ¥¼Û
+    required uint32       _is_sale =5; // ÊÇ·ñ´òÕÛ
 }
 
 message star_goods {
-    enum box_type {
-        stone_green  = 0;   // å°
-        stone_blue   = 1;   // ä¸­
-        stone_purple = 2;   // å¤§
-    }
-    required box_type _type         = 1; //å®ç®±å“è´¨
-    required uint32   _amount       = 2 [default = 1]; // ç‰©å“æ•°é‡
-    required uint32   _stone_id     = 3; //è´­ä¹°å®ç®±æ‰€éœ€çš„çµé­‚çŸ³id
-    required uint32   _stone_amount = 4; //è´­ä¹°å®ç®±æ‰€éœ€çš„çµé­‚çŸ³æ•°é‡
+    //enum box_type {
+    //    stone_green  = 0;   // Ğ¡
+    //    stone_blue   = 1;   // ÖĞ
+    //    stone_purple = 2;   // ´ó
+    //}
+    required uint32 _type         = 1; //±¦ÏäÆ·ÖÊ
+    required uint32   _amount       = 2 ; // ÎïÆ·ÊıÁ¿
+    required uint32   _stone_id     = 3; //¹ºÂò±¦ÏäËùĞèµÄÁé»êÊ¯id
+    required uint32   _stone_amount = 4; //¹ºÂò±¦ÏäËùĞèµÄÁé»êÊ¯ÊıÁ¿
 }
 
 message user {
     required uint32             _userid               = 1;
     required name_card          _name_card            = 2;
     required uint32             _level                = 3;
-    required uint32             _recharge_sum         = 4;  // å……å€¼ç´¯è®¡
+    required uint32             _recharge_sum         = 4;  // ³äÖµÀÛ¼Æ
     required uint32             _exp                  = 5;
     required uint32             _money                = 6;
     required uint32             _rmb                  = 7;
     required vitality           _vitality             = 8;
     repeated hero               _heroes               = 10;
     repeated uint32             _items                = 11; // <<amount:11, id:10>>
-                                                            // è¿™é‡Œå¯ä»¥+ä¸ªä¼˜åŒ–ï¼Œå¦‚æœamount=1çš„è¯ï¼Œå½“æˆ0æ¥ç¼–ç 
+                                                            // ÕâÀï¿ÉÒÔ+¸öÓÅ»¯£¬Èç¹ûamount=1µÄ»°£¬µ±³É0À´±àÂë
     required skilllevelup       _skill_level_up       = 12;
-    required userstage          _userstage            = 15; // ç©å®¶å…³å¡ç›¸å…³ä¿¡æ¯
+    required userstage          _userstage            = 15; // Íæ¼Ò¹Ø¿¨Ïà¹ØĞÅÏ¢
     repeated user_shop          _shop                 = 16;
-    repeated uint32             _tutorial             = 17; // æ–°æ‰‹å¼•å¯¼çš„å†…å®¹
-    repeated usertask           _task                 = 18; // ä»»åŠ¡è®°å½•
-    repeated uint32             _task_finished        = 19; // å·²ç»å®Œæˆçš„ä»»åŠ¡é“¾è®°å½•
-    optional uint32             _last_login           = 20; // ä¸Šæ¬¡ç™»é™†æ—¶é—´
-    repeated dailyjob           _dailyjob             = 21; // æ¯æ—¥ä»»åŠ¡
-    repeated tavern_record      _tavern_record        = 22; // é…’é¦†è®°å½•
-    required usermidas          _usermidas            = 23; // ç‚¹é‡‘æ‰‹
-    required daily_login        _daily_login          = 24; // æ¯æ—¥ç™»é™†
-    repeated uint32             _recharge_limit       = 25; // å……å€¼é™æ¬¡ <<times:11, id:10>>
-    repeated uint32             _vip_gifts_draw       = 26; // å·²ç»é¢†å–çš„VIPç¤¼åŒ…é›†åˆ
-    repeated user_point         _points               = 27; // ç©å®¶æ¶ˆè€—ç‚¹æ•°ï¼Œæ–°å‹è´§å¸é›†åˆ
-    repeated monthcard          _month_card           = 28; // ç©å®¶æœˆå¡æ•°æ®
-    required user_guild         _user_guild           = 29; // ç”¨æˆ·å…¬ä¼šæ•°æ®
-    required chat               _chat                 = 30; // èŠå¤©æ•°æ®
-    optional star_shop          _sshop                = 31; // æœºæªå…µå•†åº—
-    optional uint32				_facebook_follow      = 32; // fbçš„å…³æ³¨è¯†åˆ«
-    optional string				_praise			      = 33; // å¥½è¯„æ´»åŠ¨
-    optional uint32				_sessionid			  = 34; // ç™»é™†Key
-		
+    repeated uint32             _tutorial             = 17; // ĞÂÊÖÒıµ¼µÄÄÚÈİ
+    repeated usertask           _task                 = 18; // ÈÎÎñ¼ÇÂ¼
+    repeated uint32             _task_finished        = 19; // ÒÑ¾­Íê³ÉµÄÈÎÎñÁ´¼ÇÂ¼
+    optional uint32             _last_login           = 20; // ÉÏ´ÎµÇÂ½Ê±¼ä
+    repeated dailyjob           _dailyjob             = 21; // Ã¿ÈÕÈÎÎñ
+    repeated tavern_record      _tavern_record        = 22; // ¾Æ¹İ¼ÇÂ¼
+    required usermidas          _usermidas            = 23; // µã½ğÊÖ
+    required daily_login        _daily_login          = 24; // Ã¿ÈÕµÇÂ½
+    repeated uint32             _recharge_limit       = 25; // ³äÖµÏŞ´Î <<times:11, id:10>>
+    repeated uint32             _vip_gifts_draw       = 26; // ÒÑ¾­ÁìÈ¡µÄVIPÀñ°ü¼¯ºÏ
+    repeated user_point         _points               = 27; // Íæ¼ÒÏûºÄµãÊı£¬ĞÂĞÍ»õ±Ò¼¯ºÏ
+    repeated monthcard          _month_card           = 28; // Íæ¼ÒÔÂ¿¨Êı¾İ
+    required user_guild         _user_guild           = 29; // ÓÃ»§¹«»áÊı¾İ
+    required chat               _chat                 = 30; // ÁÄÌìÊı¾İ
+    optional star_shop          _sshop                = 31; // »úÇ¹±øÉÌµê
+    optional uint32				_facebook_follow      = 32; // fbµÄ¹Ø×¢Ê¶±ğ
+    optional string				_praise			      = 33; // ºÃÆÀ»î¶¯
+    optional uint32				_sessionid			  = 34; // µÇÂ½Key
+    optional vitality           _shadow_runes         = 35; // ÌåÁ¦Ãæ°ü
 
-    // éœ€è¦æ›´æ–°users:pack_user
+
+    // ĞèÒª¸üĞÂusers:pack_user
 }
 
 message user_summary {
-    required uint32 _avatar     = 1; // ç©å®¶å¤´åƒ
-    required string _name       = 2; // ç©å®¶å
-    required uint32 _vip        = 3; // ç©å®¶vip
-    required uint32 _level      = 4; // ç©å®¶ç­‰çº§
-    optional string _guild_name = 5; //å…¬ä¼šåå­—
-    optional uint32 _user_id    = 6; // ç©å®¶ID
+    required uint32 _avatar     = 1; // Íæ¼ÒÍ·Ïñ
+    required string _name       = 2; // Íæ¼ÒÃû
+    required uint32 _vip        = 3; // Íæ¼Òvip
+    required uint32 _level      = 4; // Íæ¼ÒµÈ¼¶
+    optional string _guild_name = 5; //¹«»áÃû×Ö
+    optional uint32 _user_id    = 6; // Íæ¼ÒID
 }
 
-//é›‡ä½£ç»“æœ
-enum hire_result {
-    success = 0;
-    fail    = 1;
-    stage_invalid = 2;
-}
+//¹ÍÓ¶½á¹û
+//enum hire_result {
+//    success_hire = 0;
+//    fail_hire    = 1;
+//    stage_invalid = 2;
+//}
 
-// åå­—å¡
+// Ãû×Ö¿¨
 message name_card {
-    required string _name               = 1;    // ç©å®¶åå­—
-    required uint32 _last_set_name_time = 2;    // ä¸Šæ¬¡è®¾ç½®åå­—çš„æ—¶é—´ï¼Œé»˜è®¤æ˜¯0
-    required uint32 _avatar             = 3;    // ç©å®¶å¤´åƒï¼Œé»˜è®¤å¤´åƒä¸º0
+    required string _name               = 1;    // Íæ¼ÒÃû×Ö
+    required uint32 _last_set_name_time = 2;    // ÉÏ´ÎÉèÖÃÃû×ÖµÄÊ±¼ä£¬Ä¬ÈÏÊÇ0
+    required uint32 _avatar             = 3;    // Íæ¼ÒÍ·Ïñ£¬Ä¬ÈÏÍ·ÏñÎª0
 }
 
 message daily_login {
-    enum dailylogin_status {
-      all       = 1;      // å·²ç»å…¨éƒ¨é¢†å–
-      part      = 2;      // å·²ç»é¢†å–éƒ¨åˆ†
-      nothing   = 3;      // å•¥éƒ½æ²¡é¢†è¿‡
-    }
-    required dailylogin_status _status    = 1; // ç©å®¶æœ€è¿‘ä¸€æ¬¡ç™»å½•å¥–åŠ±é¢†å–çŠ¶æ€
-    required uint32 _frequency            = 2; // è¿ç»­ç™»é™†çš„å¤©æ•°
-    required uint32 _last_login_date      = 3; // ç©å®¶ä¸Šæ¬¡é¢†å–ç™»é™†å¥–åŠ±çš„æ—¶é—´
+    //enum dailylogin_status {
+    //  all       = 1;      // ÒÑ¾­È«²¿ÁìÈ¡
+    //  part      = 2;      // ÒÑ¾­ÁìÈ¡²¿·Ö
+    //  nothing   = 3;      // É¶¶¼Ã»Áì¹ı
+    //}
+    required uint32 _status    = 1; // Íæ¼Ò×î½üÒ»´ÎµÇÂ¼½±ÀøÁìÈ¡×´Ì¬
+    required uint32 _frequency            = 2; // Á¬ĞøµÇÂ½µÄÌìÊı
+    required uint32 _last_login_date      = 3; // Íæ¼ÒÉÏ´ÎÁìÈ¡µÇÂ½½±ÀøµÄÊ±¼ä
 }
 
 
 
-//æ¯æ—¥ç™»é™†é¢†å–å¥–åŠ±
+//Ã¿ÈÕµÇÂ½ÁìÈ¡½±Àø
 message ask_daily_login_reply {
-    required result _result               = 1;
+    required uint32 _result               = 1;
     repeated uint32 _items                = 2; // <<amount:11, id:10>>
     repeated hero   _hero                 = 3;
     optional uint32 _diamond              = 4;
 }
 
 message hero_equip {
-    required uint32 _index                = 1;   // è£…å¤‡çš„ä½ç½®
-    required uint32 _item_id              = 2;   // è£…å¤‡ID
-    required uint32 _exp                  = 3;   // è‹±é›„ç»éªŒ
+    required uint32 _index                = 1;   // ×°±¸µÄÎ»ÖÃ
+    required uint32 _item_id              = 2;   // ×°±¸ID
+    required uint32 _exp                  = 3;   // Ó¢ĞÛ¾­Ñé
 }
 
 message hero {
     required uint32 _tid                  = 1;
-    optional uint32 _rank                 = 2;   // è‹±é›„é˜¶çº§
-    required uint32 _level                = 3;   // è‹±é›„ç­‰çº§
-    required uint32 _stars                = 4;   // è¿›åŒ–ç­‰çº§
+    optional uint32 _rank                 = 2;   // Ó¢ĞÛ½×¼¶
+    required uint32 _level                = 3;   // Ó¢ĞÛµÈ¼¶
+    required uint32 _stars                = 4;   // ½ø»¯µÈ¼¶
     required uint32 _exp                  = 5;
     required uint32 _gs                   = 6;
-    required hero_status _state           = 7;   // è‹±é›„çŠ¶æ€ï¼Œæ ‡è¯†è‹±é›„æ­£åœ¨å¹²çš„äº‹
-    repeated uint32 _skill_levels         = 8;   // æŠ€èƒ½ç­‰çº§
-    repeated hero_equip _items            = 9;   // å½“å‰çš„è£…å¤‡åˆ—è¡¨
+    required uint32 _state           = 7;   // Ó¢ĞÛ×´Ì¬£¬±êÊ¶Ó¢ĞÛÕıÔÚ¸ÉµÄÊÂ
+    repeated uint32 _skill_levels         = 8;   // ¼¼ÄÜµÈ¼¶
+    repeated hero_equip _items            = 9;   // µ±Ç°µÄ×°±¸ÁĞ±í
 }
 
 message hero_summary{
     required uint32 _tid            = 1;
-    optional uint32 _rank           = 2;        // è‹±é›„é˜¶çº§
-    required uint32 _level          = 3;        // è‹±é›„ç­‰çº§
-    required uint32 _stars          = 4;        // è¿›åŒ–ç­‰çº§
+    optional uint32 _rank           = 2;        // Ó¢ĞÛ½×¼¶
+    required uint32 _level          = 3;        // Ó¢ĞÛµÈ¼¶
+    required uint32 _stars          = 4;        // ½ø»¯µÈ¼¶
     optional uint32 _gs             = 5;        // GS
-    optional hero_status _state     = 6;        // çŠ¶æ€
+    optional uint32 _state     = 6;        // ×´Ì¬
 }
 
 message hero_dyna {
@@ -468,140 +472,140 @@ message hero_dyna {
 }
 
 message skilllevelup {
-    required uint32     _skill_levelup_chance = 1; // å½“å‰æ‹¥æœ‰å¯å‡çº§æŠ€èƒ½æ¬¡æ•°
-    required uint32     _skill_levelup_cd     = 2; // ä¸Šæ¬¡è·å¾—å‡çº§æŠ€èƒ½æœºä¼šçš„æ—¶é—´æˆ³
-    required uint32     _reset_times          = 3; // å½“æ—¥å·²é‡ç½®çš„æ¬¡æ•°
-    required uint32     _last_reset_date      = 4; // ä¸Šæ¬¡é‡ç½®çš„æ—¥æœŸ
+    required uint32     _skill_levelup_chance = 1; // µ±Ç°ÓµÓĞ¿ÉÉı¼¶¼¼ÄÜ´ÎÊı
+    required uint32     _skill_levelup_cd     = 2; // ÉÏ´Î»ñµÃÉı¼¶¼¼ÄÜ»ú»áµÄÊ±¼ä´Á
+    required uint32     _reset_times          = 3; // µ±ÈÕÒÑÖØÖÃµÄ´ÎÊı
+    required uint32     _last_reset_date      = 4; // ÉÏ´ÎÖØÖÃµÄÈÕÆÚ
 
 }
 
 message usertask {
-    enum status {
-        finished = 0;
-        working = 1;
-    }
-    required uint32 _line               = 1;                      // ä»»åŠ¡çº¿ID
-    required uint32 _id                 = 2;                      // ä»»åŠ¡ID
-    required status _status             = 3 [default = working];  // ä»»åŠ¡å½“å‰çŠ¶å†µï¼šå½“å¥–åŠ±é¢†å®Œæ—¶ï¼Œè®¾ç½®ä¸ºfinished
-    optional uint32 _task_target        = 4;                      // ä»»åŠ¡è®¡æ•°å™¨
+    //enum status {
+    //    finished = 0;
+     //   working = 1;
+    //}
+    required uint32 _line               = 1;                      // ÈÎÎñÏßID
+    required uint32 _id                 = 2;                      // ÈÎÎñID
+    required uint32 _status             = 3 ;  // ÈÎÎñµ±Ç°×´¿ö£ºµ±½±ÀøÁìÍêÊ±£¬ÉèÖÃÎªfinished
+    optional uint32 _task_target        = 4;                      // ÈÎÎñ¼ÆÊıÆ÷
 }
 
 message dailyjob {
-    required uint32 _id                   = 1; // æ¯æ—¥æ´»åŠ¨ID
-    required uint32 _last_rewards_time    = 2; // ä¸Šæ¬¡é¢†å–æ—¶é—´
-    optional uint32 _task_target          = 3; // å½“æ—¥ä»»åŠ¡ç´¯è®¡
+    required uint32 _id                   = 1; // Ã¿ÈÕ»î¶¯ID
+    required uint32 _last_rewards_time    = 2; // ÉÏ´ÎÁìÈ¡Ê±¼ä
+    optional uint32 _task_target          = 3; // µ±ÈÕÈÎÎñÀÛ¼Æ
 }
 
 message sweeploot {
-    required uint32 _exp    = 1; // ç»éªŒ
-    required uint32 _money  = 2; // é‡‘é’±
+    required uint32 _exp    = 1; // ¾­Ñé
+    required uint32 _money  = 2; // ½ğÇ®
     repeated uint32 _items  = 3; // <<amount:11, id:10>>
 }
 
-// é…’é¦†è®°å½•
+// ¾Æ¹İ¼ÇÂ¼
 message tavern_record {
-    enum box_type {
-        green           = 1;    // ç»¿ç®±å­
-        blue            = 2;    // è“ç®±å­
-        purple          = 3;    // ç´«ç®±å­
-        magicsoul       = 4;    // é­”å¹»å®ç®±
-    }
-    required box_type _box_type     = 1[default = green];       //ç®±å­ç±»å‹
-    required uint32 _left_cnt       = 2;   // å‰©ä½™æ¬¡æ•°
-    required uint32 _last_get_time  = 3;   // ä¸Šæ¬¡é¢†å–æ—¶é—´
-    required uint32 _has_first_draw = 4;   // <<single:é«˜16ä½, combo:ä½16ä½>>
+    //enum box_type {
+    //    green           = 1;    // ÂÌÏä×Ó
+    //    blue            = 2;    // À¶Ïä×Ó
+     //   purple          = 3;    // ×ÏÏä×Ó
+    //    magicsoul       = 4;    // Ä§»Ã±¦Ïä
+    //}
+    required uint32 _box_type     = 1;       //Ïä×ÓÀàĞÍ
+    required uint32 _left_cnt       = 2;   // Ê£Óà´ÎÊı
+    required uint32 _last_get_time  = 3;   // ÉÏ´ÎÁìÈ¡Ê±¼ä
+    required uint32 _has_first_draw = 4;   // <<single:¸ß16Î», combo:µÍ16Î»>>
 }
 
 message usermidas {
-    required uint32 _last_change = 1; // ä¸Šæ¬¡æ”¹åŠ¨æ—¶é—´
-    required uint32 _today_times = 2; // ä»Šå¤©ä½¿ç”¨æ¬¡æ•°
+    required uint32 _last_change = 1; // ÉÏ´Î¸Ä¶¯Ê±¼ä
+    required uint32 _today_times = 2; // ½ñÌìÊ¹ÓÃ´ÎÊı
 }
 
 
 //-------------------------------------------------------------------------------
 
 
-// è§¦å‘ä»»åŠ¡çš„è¿”å›
+// ´¥·¢ÈÎÎñµÄ·µ»Ø
 message trigger_task_reply {
-    repeated result     _result = 1 [default = success];
+    repeated uint32     _result = 1 ;
 }
 
-// è¦æ±‚ä»»åŠ¡å¥–åŠ±çš„è¿”å›
+// ÒªÇóÈÎÎñ½±ÀøµÄ·µ»Ø
 message require_rewards_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1 ;
 }
 
 
-// æ¯æ—¥æ´»åŠ¨è§¦å‘è¿”å›
+// Ã¿ÈÕ»î¶¯´¥·¢·µ»Ø
 message trigger_job_reply {
-    repeated result     _result = 1 [default = success];
+    repeated uint32     _result = 1 ;
 }
 
-// æ´»åŠ¨å¥–åŠ±
+// »î¶¯½±Àø
 message  dailyjob_reward {
-    enum type {
-        rmb          = 1;           // å®çŸ³
-        money        = 2;           // é‡‘å¸
-        item         = 3;           // ç‰©å“
-        hero         = 4;           // è‹±é›„
-        vitality     = 5;           // ä½“åŠ›
-        playerexp    = 6;           // ç»éªŒ
-        crusadepoint = 7;
-        arenapoint   = 8;
-        guildpoint   = 9;
-    }
-    optional type   _type   = 1; // ç±»å‹
+    //enum type {
+    //    rmb          = 1;           // ±¦Ê¯
+    //    money        = 2;           // ½ğ±Ò
+     //   item         = 3;           // ÎïÆ·
+    //    hero         = 4;           // Ó¢ĞÛ
+     //   vitality     = 5;           // ÌåÁ¦
+     //   playerexp    = 6;           // ¾­Ñé
+    //    crusadepoint = 7;
+     //   arenapoint   = 8;
+    //    guildpoint   = 9;
+    //}
+    optional uint32   _type   = 1; // ÀàĞÍ
     optional uint32 _id     = 2; // id
-    optional uint32 _amount = 3; // æ•°é‡
+    optional uint32 _amount = 3; // ÊıÁ¿
 }
 
-// æ´»åŠ¨å¥–åŠ±é¢†å–çš„è¿”å›
+// »î¶¯½±ÀøÁìÈ¡µÄ·µ»Ø
 message job_rewards_reply {
-    required result          _result = 1 [default = success];
+    required uint32          _result = 1 ;
     repeated dailyjob_reward _activity_reward = 2;
 }
 
 
-// é…’é¦†æŠ½å¥–å›å¤
+// ¾Æ¹İ³é½±»Ø¸´
 message tavern_draw_reply {
     repeated uint32 _item_ids   = 1;  // <<amount:11, id:10>>
-    repeated hero   _new_heroes = 2;  // è·å¾—çš„æ–°è‹±é›„å…¨é‡æ•°æ®
-    repeated uint32 _smash_idx  = 3;  // è‹±é›„è½¬æ¢ä¸ºç¢ç‰‡çš„ä½ç½®
+    repeated hero   _new_heroes = 2;  // »ñµÃµÄĞÂÓ¢ĞÛÈ«Á¿Êı¾İ
+    repeated uint32 _smash_idx  = 3;  // Ó¢ĞÛ×ª»»ÎªËéÆ¬µÄÎ»ÖÃ
 }
 
 //-------------------------------------------------------------------------------
 
-// ç²¾è‹±å…³å¡é‡ç½®çš„è¿”å›
+// ¾«Ó¢¹Ø¿¨ÖØÖÃµÄ·µ»Ø
 message reset_elite_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1 ;
 }
 
-// å…³å¡æ‰«è¡çš„è¿”å›
+// ¹Ø¿¨É¨µ´µÄ·µ»Ø
 message sweep_stage_reply {
     repeated sweeploot    _loot   = 1;
     repeated uint32       _items  = 2; // <<amount:11, id:10>>
     optional user_shop    _shop   = 3; // maybe a shop
-    optional star_shop    _sshop  = 4; // æœºæªå…µå•†åº—
+    optional star_shop    _sshop  = 4; // »úÇ¹±øÉÌµê
 }
 
-// æ‰«è¡ç›¸å…³ä¿¡æ¯
+// É¨µ´Ïà¹ØĞÅÏ¢
 message sweep {
     required uint32 _last_reset_time          = 1;
     required uint32 _today_free_sweep_times   = 2;
 }
 
-// æŠ€èƒ½å‡çº§é‡ç½®
+// ¼¼ÄÜÉı¼¶ÖØÖÃ
 message sync_skill_stren_reply{
     required skilllevelup _skill_level_up = 1;
 }
 
-// è‹±é›„è¿›åŒ–è¿”å›
+// Ó¢ĞÛ½ø»¯·µ»Ø
 message hero_evolve_reply {
-    required result     _result = 1 [default = success];
+    required uint32     _result = 1 ;
     optional hero       _hero   = 2;
 }
 
-// ä½“åŠ›å€¼ç›¸å…³æ•°æ®
+// ÌåÁ¦ÖµÏà¹ØÊı¾İ
 message vitality {
     required uint32 _current     = 1;
     required uint32 _lastchange  = 2;
@@ -609,76 +613,76 @@ message vitality {
     required uint32 _lastbuy     = 4;
 }
 
-// ç©å®¶å…³å¡ç›¸å…³ä¿¡æ¯
+// Íæ¼Ò¹Ø¿¨Ïà¹ØĞÅÏ¢
 message userstage {
     repeated uint32           _normal_stage_stars   = 1; // (2bits * 16) * N
-    repeated uint32           _elite_stage_stars    = 2; // ç²¾è‹±æœ¬çš„æ˜Ÿæ˜Ÿè®°å½•ï¼ŒIDä»10000å¼€å§‹
-    repeated uint32           _elite_daily_record   = 3; // ç²¾è‹±æœ¬ä»Šæ—¥çš„é€šå…³è®°å½•ï¼Œ<<id:10, dailylimit:4, reset:4>>
-                                                         // id:           ç²¾è‹±æœ¬ID - 10000
-                                                         // dailylimit:   ä»Šå¤©å·²ç»æ‰“è¿‡çš„æ¬¡æ•°ï¼Œæœ€å¤šä¸º15æ¬¡ï¼
-    required uint32           _elite_reset_time     = 4; // ç²¾è‹±å…³å¡é‡ç½®è®°å½•
-    required sweep            _sweep                = 5; // æ‰«è¡ç›¸å…³ä¿¡æ¯
-    repeated act_daily_record _act_daily_record     = 6; // ä»Šæ—¥è¿›å…¥æ´»åŠ¨å…³å¡çš„è®°å½•
-    required uint32           _act_reset_time       = 7; // æ´»åŠ¨çš„ä¸Šæ¬¡é‡ç½®æ—¶é—´ï¼Œåˆå§‹åŒ–æ—¶è®¾ç½®ä¸ºå½“å‰æ—¶é—´
+    repeated uint32           _elite_stage_stars    = 2; // ¾«Ó¢±¾µÄĞÇĞÇ¼ÇÂ¼£¬ID´Ó10000¿ªÊ¼
+    repeated uint32           _elite_daily_record   = 3; // ¾«Ó¢±¾½ñÈÕµÄÍ¨¹Ø¼ÇÂ¼£¬<<id:10, dailylimit:4, reset:4>>
+                                                         // id:           ¾«Ó¢±¾ID - 10000
+                                                         // dailylimit:   ½ñÌìÒÑ¾­´ò¹ıµÄ´ÎÊı£¬×î¶àÎª15´Î£¡
+    required uint32           _elite_reset_time     = 4; // ¾«Ó¢¹Ø¿¨ÖØÖÃ¼ÇÂ¼
+    required sweep            _sweep                = 5; // É¨µ´Ïà¹ØĞÅÏ¢
+    repeated act_daily_record _act_daily_record     = 6; // ½ñÈÕ½øÈë»î¶¯¹Ø¿¨µÄ¼ÇÂ¼
+    required uint32           _act_reset_time       = 7; // »î¶¯µÄÉÏ´ÎÖØÖÃÊ±¼ä£¬³õÊ¼»¯Ê±ÉèÖÃÎªµ±Ç°Ê±¼ä
 }
 
 
-// æ´»åŠ¨æ¯æ—¥è®°å½•
+// »î¶¯Ã¿ÈÕ¼ÇÂ¼
 message act_daily_record {
-    required uint32     _id           = 1;  // æ´»åŠ¨ç»„ID
-    required uint32     _frequency    = 2;  // ä»Šæ—¥è¿›å…¥æ¬¡æ•°
-    required uint32     _last_change  = 3;  // ä¸Šæ¬¡è¿›å…¥æ´»åŠ¨çš„æ—¶é—´
+    required uint32     _id           = 1;  // »î¶¯×éID
+    required uint32     _frequency    = 2;  // ½ñÈÕ½øÈë´ÎÊı
+    required uint32     _last_change  = 3;  // ÉÏ´Î½øÈë»î¶¯µÄÊ±¼ä
 }
 
-// pvpå¤©æ¢¯
+// pvpÌìÌİ
 message ladder_reply{
-    optional open_panel         _open_panel         = 1;   // æ‰“å¼€è”èµ›é¢æ¿
-    optional apply_opponent     _apply_oppo         = 2;   // è¯·æ±‚æ¯”èµ›å¯¹æ‰‹
-    optional start_battle       _start_battle       = 3;   // å¼€å§‹æˆ˜æ–—æ•°æ®
-    optional end_battle         _end_battle         = 4;   // ç»“æŸæˆ˜æ–—æ•°æ®
-    optional set_lineup         _set_lineup         = 5;   // è®¾ç½®é˜µå®¹
-    optional query_records      _query_records      = 6;   // æŸ¥è¯¢æ¯”èµ›è®°å½•
-    optional query_replay       _query_replay       = 7;   // æŸ¥è¯¢å›æ”¾æ•°æ®
-    optional query_rankboard    _query_rankborad    = 8;   // æŸ¥è¯¢æ’è¡Œæ¦œæ•°æ®
-    optional query_oppo_info    _query_oppo         = 9;   // æŸ¥è¯¢å¯¹æ‰‹ä¿¡æ¯
-    optional clear_battle_cd    _clear_battle_cd    = 10;  // é‡ç½®æˆ˜æ–—cd
-    optional draw_rank_reward   _draw_rank_reward   = 11;  // é¢†å–æ’åå¥–åŠ±
-    optional buy_battle_chance  _buy_battle_chance  = 12;  // è´­ä¹°æˆ˜æ–—æ¬¡æ•°
+    optional open_panel         _open_panel         = 1;   // ´ò¿ªÁªÈüÃæ°å
+    optional apply_opponent     _apply_oppo         = 2;   // ÇëÇó±ÈÈü¶ÔÊÖ
+    optional start_battle       _start_battle       = 3;   // ¿ªÊ¼Õ½¶·Êı¾İ
+    optional end_battle         _end_battle         = 4;   // ½áÊøÕ½¶·Êı¾İ
+    optional set_lineup         _set_lineup         = 5;   // ÉèÖÃÕóÈİ
+    optional query_records      _query_records      = 6;   // ²éÑ¯±ÈÈü¼ÇÂ¼
+    optional query_replay       _query_replay       = 7;   // ²éÑ¯»Ø·ÅÊı¾İ
+    optional query_rankboard    _query_rankborad    = 8;   // ²éÑ¯ÅÅĞĞ°ñÊı¾İ
+    optional query_oppo_info    _query_oppo         = 9;   // ²éÑ¯¶ÔÊÖĞÅÏ¢
+    optional clear_battle_cd    _clear_battle_cd    = 10;  // ÖØÖÃÕ½¶·cd
+    optional draw_rank_reward   _draw_rank_reward   = 11;  // ÁìÈ¡ÅÅÃû½±Àø
+    optional buy_battle_chance  _buy_battle_chance  = 12;  // ¹ºÂòÕ½¶·´ÎÊı
 }
 
 message open_panel{
-    required uint32 _rank               = 1;        //æ’å
-    required uint32 _left_count         = 2;        //å‰©ä½™æˆ˜æ–—é™æ¬¡
-    required uint32 _last_bt_time       = 3;        //ä¸Šæ¬¡æˆ˜æ–—æ—¶é—´
-    required uint32 _buy_times          = 4;        //ä»Šæ—¥è´­ä¹°æ¬¡æ•°
-    repeated uint32 _lineup             = 5;        //é˜µå®¹
-    required uint32 _gs                 = 6;        //é˜µå®¹gs
-    repeated ladder_opponent _oppos     = 7;        //å¯¹æ‰‹åˆ—è¡¨
+    required uint32 _rank               = 1;        //ÅÅÃû
+    required uint32 _left_count         = 2;        //Ê£ÓàÕ½¶·ÏŞ´Î
+    required uint32 _last_bt_time       = 3;        //ÉÏ´ÎÕ½¶·Ê±¼ä
+    required uint32 _buy_times          = 4;        //½ñÈÕ¹ºÂò´ÎÊı
+    repeated uint32 _lineup             = 5;        //ÕóÈİ
+    required uint32 _gs                 = 6;        //ÕóÈİgs
+    repeated ladder_opponent _oppos     = 7;        //¶ÔÊÖÁĞ±í
 }
 
 message apply_opponent{
-    repeated ladder_opponent _oppos   = 1;        //å¯¹æ‰‹åˆ—è¡¨
+    repeated ladder_opponent _oppos   = 1;        //¶ÔÊÖÁĞ±í
 }
 
 message start_battle{
-    required result _result         = 1;
+    required uint32 _result         = 1;
     required uint32 _rseed          = 2;
-    repeated hero   _self_heroes    = 3;        //è‡ªå·±è‹±é›„è¯¦ç»†ä¿¡æ¯
-    repeated hero   _heroes         = 4;        //å¯¹æ‰‹è‹±é›„è¯¦ç»†ä¿¡æ¯
-    required uint32 _is_robot       = 5;        //å¯¹æ‰‹æ˜¯å¦ä¸ºæœºå™¨äºº
+    repeated hero   _self_heroes    = 3;        //×Ô¼ºÓ¢ĞÛÏêÏ¸ĞÅÏ¢
+    repeated hero   _heroes         = 4;        //¶ÔÊÖÓ¢ĞÛÏêÏ¸ĞÅÏ¢
+    required uint32 _is_robot       = 5;        //¶ÔÊÖÊÇ·ñÎª»úÆ÷ÈË
 }
 
 message end_battle{
-    required battle_result _result      = 1;
-    required uint32 _best_rank_reward   = 2;     // æœ€é«˜æ’åå¥–åŠ±
-    required uint32 _best_rank          = 3;     // æœ€é«˜æ’å
-    required uint32 _cur_rank           = 4;     // å½“å‰æ’å
+    required uint32 _result      = 1;
+    required uint32 _best_rank_reward   = 2;     // ×î¸ßÅÅÃû½±Àø
+    required uint32 _best_rank          = 3;     // ×î¸ßÅÅÃû
+    required uint32 _cur_rank           = 4;     // µ±Ç°ÅÅÃû
 }
 
 message set_lineup{
-    required result _result         = 1;
-    repeated uint32 _lineup         = 2;     // é˜µå®¹ä¿¡æ¯ï¼Œheroæ•°ç»„
-    required uint32 _gs             = 3;     // é˜µå®¹gs
+    required uint32 _result         = 1;
+    repeated uint32 _lineup         = 2;     // ÕóÈİĞÅÏ¢£¬heroÊı×é
+    required uint32 _gs             = 3;     // ÕóÈİgs
 }
 
 message query_records{
@@ -702,7 +706,7 @@ message pvp_record {
     optional uint32 _oppo_avatar   = 10;
     optional uint32 _oppo_vip      = 11;
     optional uint32 _oppo_robot    = 12;
-    optional battle_result _result = 13 [default = victory];
+    optional uint32 _result = 13 ;
     repeated hero   _self_heroes   = 14;
     repeated hero_dyna _self_dynas = 15;
     repeated hero   _oppo_heroes   = 16;
@@ -715,9 +719,9 @@ message pvp_record {
 
 message query_rankboard{
     repeated rankboard_data _rank_list   = 1;
-    optional rankboard_data _self_rank   = 2;  // è‡ªå·±çš„æ’è¡Œæ¦œä¿¡æ¯
-    optional uint32         _pos         = 3;  // è‡ªå·±çš„æ’å
-    optional uint32         _prev_pos    = 4;  // è‡ªå·±ä¹‹å‰çš„æ’å
+    optional rankboard_data _self_rank   = 2;  // ×Ô¼ºµÄÅÅĞĞ°ñĞÅÏ¢
+    optional uint32         _pos         = 3;  // ×Ô¼ºµÄÅÅÃû
+    optional uint32         _prev_pos    = 4;  // ×Ô¼ºÖ®Ç°µÄÅÅÃû
 }
 
 message query_oppo_info{
@@ -725,7 +729,7 @@ message query_oppo_info{
 }
 
 message clear_battle_cd{
-    required result _result         = 1;
+    required uint32 _result         = 1;
 }
 
 message rankboard_data{
@@ -735,60 +739,60 @@ message rankboard_data{
 
 message ladder_record{
     required uint32 _user_id            = 1;
-    required user_summary _summary      = 2;        //ç®€è¦ä¿¡æ¯
-    required uint32 _deta_rank          = 3;        //ç©å®¶ç­‰çº§
-    required uint32 _bt_time            = 4;        //æˆ˜æ–—æ—¶é—´
-    required battle_result  _bt_result  = 5;        //æˆ˜æ–—ç»“æœ
-    required uint32 _replay_id          = 6;        //æˆ˜æ–—å½•åƒID
+    required user_summary _summary      = 2;        //¼òÒªĞÅÏ¢
+    required uint32 _deta_rank          = 3;        //Íæ¼ÒµÈ¼¶
+    required uint32 _bt_time            = 4;        //Õ½¶·Ê±¼ä
+    required uint32  _bt_result  = 5;        //Õ½¶·½á¹û
+    required uint32 _replay_id          = 6;        //Õ½¶·Â¼ÏñID
 }
 
 message ladder_opponent{
     required uint32 _user_id        = 1;
-    required user_summary _summary  = 2;        //ç®€è¦ä¿¡æ¯
-    required uint32 _rank           = 3;        //æ’å
-    required uint32 _win_cnt        = 4;        //èƒœåœºæ•°
-    required uint32 _gs             = 5;        //æˆ˜åŠ›
-    required uint32 _is_robot       = 6;        //æ˜¯å¦æœºå™¨äºº
+    required user_summary _summary  = 2;        //¼òÒªĞÅÏ¢
+    required uint32 _rank           = 3;        //ÅÅÃû
+    required uint32 _win_cnt        = 4;        //Ê¤³¡Êı
+    required uint32 _gs             = 5;        //Õ½Á¦
+    required uint32 _is_robot       = 6;        //ÊÇ·ñ»úÆ÷ÈË
     repeated hero_summary _heros    = 7;
 }
 
 message ladder_rank_reward{
-    enum reward_type{
-        gold        = 1;
-        diamond     = 2;
-        item        = 3;
-        arenapoint  = 4;
-    }
-    required reward_type _type      = 1;        // å¥–åŠ±ç±»å‹
-    optional uint32 _param1         = 2;        // å¥–åŠ±å‚æ•°1
-    optional uint32 _param2         = 3;        // å¥–åŠ±å‚æ•°2
+    //enum reward_type{
+    //    gold        = 1;
+    //    diamond     = 2;
+    //    item        = 3;
+    //    arenapoint  = 4;
+    //}
+    required uint32 _type      = 1;        // ½±ÀøÀàĞÍ
+    optional uint32 _param1         = 2;        // ½±Àø²ÎÊı1
+    optional uint32 _param2         = 3;        // ½±Àø²ÎÊı2
 }
 
 message draw_rank_reward{
-    repeated ladder_rank_reward _rewards = 1;   // å¥–åŠ±ç»„
+    repeated ladder_rank_reward _rewards = 1;   // ½±Àø×é
 }
 
 message buy_battle_chance{
-    required result _result         = 1 [default = success];
-    optional uint32 _buy_times      = 2;        // å·²è´­ä¹°æ¬¡æ•°
+    required uint32 _result         = 1 ;
+    optional uint32 _buy_times      = 2;        // ÒÑ¹ºÂò´ÎÊı
 }
 
-// è®¾ç½®åå­—
+// ÉèÖÃÃû×Ö
 message set_name_reply {
-    enum set_name_result {
-        success     = 0;
-        exists      = 1;
-        dirty_word  = 2;
-    }
-    required set_name_result  _result = 1 [default = success];
+    //enum set_name_result {
+    //    success     = 0;
+    //    exists      = 1;
+    //    dirty_word  = 2;
+    //}
+    required uint32  _result = 1 ;
 }
 
-// è®¾ç½®å¤´åƒ
+// ÉèÖÃÍ·Ïñ
 message set_avatar_reply {
-    required result      _result  = 1;
+    required uint32      _result  = 1;
 }
 
-// å¢é‡æ•°æ®æŸ¥è¯¢
+// ÔöÁ¿Êı¾İ²éÑ¯
 message query_data_reply {
     optional uint32     rmb             = 1;
     optional uint32     charge_sum      = 2;
@@ -797,7 +801,7 @@ message query_data_reply {
     repeated monthcard  _month_card     = 5;
 }
 
-// ç‚¹é‡‘æ‰‹ï¼Œæˆ³ä¸€ä¸‹
+// µã½ğÊÖ£¬´ÁÒ»ÏÂ
 message midas_acquire {
     required uint32 _type   = 1;
     required uint32 _money  = 2;
@@ -807,38 +811,38 @@ message midas_reply {
     repeated midas_acquire _acquire = 1;
 }
 
-// æ‰“å¼€ç¥ç§˜å•†åº—çš„è¿”å›
+// ´ò¿ªÉñÃØÉÌµêµÄ·µ»Ø
 message open_shop_reply {
-    required result      _result  = 1;
+    required uint32      _result  = 1;
     optional user_shop   _shop    = 2;
 }
 
-// å……å€¼å›å¤
+// ³äÖµ»Ø¸´
 message charge_reply {
     required string      _serial_id  = 1;
     required uint32      _charge_id  = 2;
 }
 
-// æœåŠ¡å™¨é€šçŸ¥
+// ·şÎñÆ÷Í¨Öª
 message notify_msg {
     optional ladder_notify _ladder_notify   = 1;
     optional uint32        _new_mail        = 2;
     optional uint32        _guild_chat      = 3;
     optional uint32        _activity_notify = 4;
     optional uint32        _activity_reward = 5;
-    repeated uint32        _release_heroes  = 6;        // å›åˆ°è‡ªç”±çŠ¶æ€çš„è‹±é›„ä»¬
-    optional uint32        _excav_record    = 7;        // å®ˆçŸ¿è®°å½•
+    repeated uint32        _release_heroes  = 6;        // »Øµ½×ÔÓÉ×´Ì¬µÄÓ¢ĞÛÃÇ
+    optional uint32        _excav_record    = 7;        // ÊØ¿ó¼ÇÂ¼
     optional uint32        _guild_drop      = 8;
     optional uint32        _personal_chat   = 9;
     optional uint32        _splitable_heroes = 10;
 }
 
-// å¤©æ¢¯é€šçŸ¥
+// ÌìÌİÍ¨Öª
 message ladder_notify {
-    optional uint32 _is_attacked = 1;   // 1è¢«æ”»å‡»ï¼Œ0æ²¡æœ‰è¢«æ”»å‡»
+    optional uint32 _is_attacked = 1;   // 1±»¹¥»÷£¬0Ã»ÓĞ±»¹¥»÷
 }
 
-// ç‡ƒçƒ§çš„è¿œå¾
+// È¼ÉÕµÄÔ¶Õ÷
 message tbc_reply {
     optional tbc_open_panel     _open_panel     = 1;
     optional tbc_query_oppo     _query_oppo     = 2;
@@ -859,35 +863,35 @@ message tbc_oppo_hero {
 }
 
 message tbc_reward {
-    enum type {
-        gold            = 1;
-        diamond         = 2;
-        item            = 3;
-        chest           = 4;
-        crusadepoint    = 5;
-        chestbox        = 6;
-    }
-    required type   _type   = 1;
+    //enum type {
+    //    gold            = 1;
+    //    diamond         = 2;
+    //    item            = 3;
+    //    chest           = 4;
+    //    crusadepoint    = 5;
+    //    chestbox        = 6;
+    //}
+    required uint32   _type   = 1;
     optional uint32 _param1 = 2;
     optional uint32 _param2 = 3;
 }
 
 message tbc_stage {
-    enum status {
-        unpassed    = 0;        //æœªé€šè¿‡
-        passed      = 1;        //å·²é€šè¿‡
-        rewarded    = 2;        //å·²é¢†å¥–
-    }
-    required status _status      = 1 [default = unpassed];
+    //enum status {
+    //    unpassed    = 0;        //Î´Í¨¹ı
+    //    passed      = 1;        //ÒÑÍ¨¹ı
+    //    rewarded    = 2;        //ÒÑÁì½±
+    //}
+    required uint32 _status      = 1 ;
     repeated tbc_reward _rewards = 2;
 }
 
 message tbc_info {
-    required uint32         _cur_stage   = 1;     // å½“å‰å…³å¡ä¸‹æ ‡ï¼Œä¸‹æ ‡ä»1å¼€å§‹ï¼Œ0è¡¨ç¤ºé€šå…³
-    required uint32         _reset_times = 2;     // ä»Šå¤©å·²ç”¨æ¬¡æ•°
-    repeated tbc_self_hero  _heroes      = 3;     // è‹±é›„æ•°æ®
-    repeated tbc_stage      _stages      = 4;     // å…³å¡æ•°æ®
-    optional hire_data      _hire_hero   = 5;     // é›‡ä½£è‹±é›„
+    required uint32         _cur_stage   = 1;     // µ±Ç°¹Ø¿¨ÏÂ±ê£¬ÏÂ±ê´Ó1¿ªÊ¼£¬0±íÊ¾Í¨¹Ø
+    required uint32         _reset_times = 2;     // ½ñÌìÒÑÓÃ´ÎÊı
+    repeated tbc_self_hero  _heroes      = 3;     // Ó¢ĞÛÊı¾İ
+    repeated tbc_stage      _stages      = 4;     // ¹Ø¿¨Êı¾İ
+    optional hire_data      _hire_hero   = 5;     // ¹ÍÓ¶Ó¢ĞÛ
 }
 
 message tbc_open_panel {
@@ -897,44 +901,44 @@ message tbc_open_panel {
 message tbc_query_oppo {
     required user_summary   _summary    = 1;
     repeated tbc_oppo_hero  _oppos      = 2;
-    required uint32         _is_robot   = 3;        //å¯¹æ‰‹æ˜¯å¦ä¸ºæœºå™¨äºº
+    required uint32         _is_robot   = 3;        //¶ÔÊÖÊÇ·ñÎª»úÆ÷ÈË
 }
 
 message tbc_start_battle {
-    required result         _result     = 1[default = success];
+    required uint32         _result     = 1;
     required uint32         _rseed      = 2;
 }
 
 message tbc_end_battle {
-    required battle_result  _result     = 1[default = victory];  //æŠŠå®¢æˆ·ç«¯ä¸Šä¼ çš„ç»“æœè¿”å›ï¼Œæ–¹ä¾¿å®¢æˆ·ç«¯å¤„ç†
+    required uint32  _result     = 1;  //°Ñ¿Í»§¶ËÉÏ´«µÄ½á¹û·µ»Ø£¬·½±ã¿Í»§¶Ë´¦Àí
 }
 
 message tbc_reset {
-    required result    _result          = 1[default = success];
+    required uint32    _result          = 1;
     optional tbc_info  _info            = 2;
 }
 
 message tbc_draw_reward {
-    required result     _result         = 1[default = success];
+    required uint32     _result         = 1;
     required uint32     _stage_id       = 2;
     repeated tbc_reward _rewards        = 3;
     repeated hero       _heroes         = 4;
 }
 
 
-// è·å–æ‰€æœ‰é‚®ä»¶çš„è¿”å›
+// »ñÈ¡ËùÓĞÓÊ¼şµÄ·µ»Ø
 message get_maillist_reply {
     repeated sys_mail _sys_mail_list  = 1;
 }
 
 message sys_mail {
-    enum status {
-        unread  = 0;
-        read    = 1;
-        delete    = 2;
-    }
+    //enum status {
+    //    unread  = 0;
+    //    read    = 1;
+    //    maildelete    = 2;
+    //}
     required uint32 _id             = 1;
-    required status _status         = 2;
+    required uint32 _status         = 2;
     required uint32 _mail_time      = 3;
     required uint32 _expire_time    = 4;
     required mail_content _content  = 5;
@@ -942,7 +946,8 @@ message sys_mail {
     optional uint32 _diamonds       = 7;
     optional uint32 _skill_point    = 8;
     repeated uint32 _items          = 9;    // <<amount:11, id:10>>
-    repeated user_point _points     = 10;   // ç©å®¶æ¶ˆè€—ç‚¹æ•°ï¼Œæ–°å‹è´§å¸é›†åˆ
+    required uint32 _type           = 11;   // 1 ÊÇÏµÍ³ÓÊ¼ş£¬2ÊÇ¹«»áÓÊ¼ş
+    repeated user_point _points     = 10;   // Íæ¼ÒÏûºÄµãÊı£¬ĞÂĞÍ»õ±Ò¼¯ºÏ
 }
 
 message mail_content {
@@ -962,47 +967,47 @@ message format_mail {
 }
 
 message mail_param {
-    enum mail_param_type {
-        value               = 1;     // çº¯å€¼ç±»å‹ï¼Œæ•°å­—ã€å­—ç¬¦ä¸²
-        money               = 2;     // è´§å¸
-        item                = 3;     // ç‰©å“
-        mine                = 4;     // çŸ¿å›¾æ ‡
-        self_hero           = 5;     // è‡ªå·±çš„è‹±é›„
-        excav_battle_id     = 6;     // æŠ¢çŸ¿æˆ˜æ–—
-        hero_name           = 7;     // è‹±é›„å
-    }
+    //enum mail_param_type {
+     //   value               = 1;     // ´¿ÖµÀàĞÍ£¬Êı×Ö¡¢×Ö·û´®
+     //   money               = 2;     // »õ±Ò
+    //    item                = 3;     // ÎïÆ·
+     //   mine                = 4;     // ¿óÍ¼±ê
+    //    self_hero           = 5;     // ×Ô¼ºµÄÓ¢ĞÛ
+    //    excav_battle_id     = 6;     // ÇÀ¿óÕ½¶·
+    //    hero_name           = 7;     // Ó¢ĞÛÃû
+   // }
 
     required uint32             _idx    = 1;
-    optional mail_param_type    _type   = 2;
+    optional uint32    _type   = 2;
     optional string             _value  = 3;
 }
 
 message user_point {
-    enum user_point_type {
-        arenapoint      = 1;        // pvpç‚¹æ•°
-        crusadepoint    = 2;        // è¿œå¾ç‚¹æ•°
-        guildpoint      = 3;        // å…¬ä¼šå¸
-    }
-    required user_point_type     _type   = 1[default = arenapoint];
+    //enum user_point_type {
+    //    arenapoint      = 1;        // pvpµãÊı
+    //    crusadepoint    = 2;        // Ô¶Õ÷µãÊı
+    //    guildpoint      = 3;        // ¹«»á±Ò
+    //}
+    required uint32     _type   = 1;
     required uint32              _value  = 2;
 }
 
-// è¯»é‚®ä»¶çš„è¿”å›
+// ¶ÁÓÊ¼şµÄ·µ»Ø
 message read_mail_reply {
-    required result  _result  = 1;
+    required uint32  _result  = 1;
 }
 
 message get_vip_gift_reply {
-    required result  _result  = 1;
+    required uint32  _result  = 1;
 }
 
-// èŠå¤©å›å¤
+// ÁÄÌì»Ø¸´
 message chat_reply {
     optional chat_say       _say            = 1;
     optional chat_fresh     _fresh          = 2;
     optional chat_fetch     _fetch          = 3;
-    optional chat_add_bl    _chat_add_bl    = 4;            //æ‹‰é»‘åå•
-    optional chat_del_bl    _chat_del_bl    = 5;            //è§£é™¤é»‘åå•
+    optional chat_add_bl    _chat_add_bl    = 4;            //À­ºÚÃûµ¥
+    optional chat_del_bl    _chat_del_bl    = 5;            //½â³ıºÚÃûµ¥
     optional chat_blacklist _chat_blacklist = 6;
     optional chat_broad_say _chat_borad_say = 7;
 }
@@ -1017,34 +1022,34 @@ message chat_blacklist {
 }
 
 message chat_broad_say {
-    optional result       _result = 1;
-    optional chat_channel _channel = 2;
+    optional uint32       _result = 1;
+    optional uint32 _channel = 2;
     repeated chat_content _contents = 3;
 }
 
 message chat_say {
-    required result       _result   = 1[default = success];
-    required chat_channel _channel  = 2[default = world_channel];
+    required uint32       _result   = 1;
+    required uint32 _channel  = 2;
     repeated chat_content _contents = 3;
 }
 
 message chat_fresh {
-    required chat_channel _channel  = 1[default = world_channel];
+    required uint32 _channel  = 1;
     repeated chat_content _contents = 2;
 }
 
 message chat_fetch {
-    required chat_channel _channel  = 1[default = world_channel];
+    required uint32 _channel  = 1;
     required uint32       _chat_id  = 2;
     optional chat_acc     _accessory= 3;
 }
 
 message chat_acc {
-    enum chat_acc_t {
-        binary = 1;                 // å®¢æˆ·ç«¯è‡ªå®šä¹‰æ•°æ®
-        pvp_replay  = 2;            // pvpæ¯”èµ›å½•åƒ
-    }
-    required chat_acc_t   _type     = 1[default = binary];
+    //enum chat_acc_t {
+    //    binary = 1;                 // ¿Í»§¶Ë×Ô¶¨ÒåÊı¾İ
+    //    pvp_replay  = 2;            // pvp±ÈÈüÂ¼Ïñ
+    //}
+    required uint32   _type     = 1;
     optional string       _binary   = 2;
     optional pvp_record   _replay   = 3;
 }
@@ -1055,7 +1060,7 @@ message chat_content {
     required user_summary _speaker_summary  = 3;
     optional uint32 _target_uid             = 4;
     optional user_summary _target_summary   = 5;
-    optional uint32 _speaker_post           = 6;        //èŒä½
+    optional uint32 _speaker_post           = 6;        //Ö°Î»
     required uint32 _speak_time             = 7;
     required uint32 _content_type           = 8;
     required string _content                = 9;
@@ -1063,74 +1068,80 @@ message chat_content {
 }
 
 message chat_add_bl {
-    required result       _ret  = 1;
+    required uint32       _ret  = 1;
 }
 
 message chat_del_bl {
-    required result       _ret  = 1;
+    required uint32       _ret  = 1;
 }
 
-// ç”¨æˆ·èŠå¤©æ•°æ®
+// ÓÃ»§ÁÄÌìÊı¾İ
 message chat {
-    required uint32 _world_chat_times           = 1;      // æœ¬æ—¥ä¸–ç•ŒèŠå¤©æ¬¡æ•°
-    required uint32 _last_reset_world_chat_time = 2;      // ä¸Šæ¬¡é‡ç½®ä¸–ç•ŒèŠå¤©æ—¶é—´
-    repeated uint32 _black_list                 = 3;      // é»‘åå•
+    required uint32 _world_chat_times           = 1;      // ±¾ÈÕÊÀ½çÁÄÌì´ÎÊı
+    required uint32 _last_reset_world_chat_time = 2;      // ÉÏ´ÎÖØÖÃÊÀ½çÁÄÌìÊ±¼ä
+    repeated uint32 _black_list                 = 3;      // ºÚÃûµ¥
 }
 
-// å…¬ä¼š
+// ¹«»á
 message user_guild {
     required uint32         _id             = 1;
     required string         _name           = 2;
-    optional guild_job_t    _job            = 3[default = member];
+    optional uint32    _job            = 3;
     optional uint32         _req_guild_id   = 4;
-    repeated uint32         _hire_hero      = 5;        //é›‡ä½£å‡ºå»çš„è‹±é›„åˆ—è¡¨
+    repeated uint32         _hire_hero      = 5;        //¹ÍÓ¶³öÈ¥µÄÓ¢ĞÛÁĞ±í
 }
 
 message guild_reply {
-    optional guild_create           _create             = 1;        //åˆ›å»ºå…¬ä¼š ok
-    optional guild_dismiss          _dismiss            = 2;        //è§£æ•£å…¬ä¼š ok
-    optional guild_list             _list               = 3;        //è·å–å…¬ä¼šåˆ—è¡¨ ok
-    optional guild_search           _search             = 4;        //æŒ‰æ¡ä»¶æŸ¥è¯¢å…¬ä¼š ok
-    optional guild_join             _join               = 5;        //åŠ å…¥å…¬ä¼š ok
-    optional guild_join_confirm     _join_confirm       = 6;        //åŠ å…¥å…¬ä¼šç¡®è®¤ ok
-    optional guild_leave            _leave              = 7;        //ç¦»å¼€å…¬ä¼š ok
-    optional guild_kick             _kick               = 8;        //è¸¢å‡ºå…¬ä¼š ok
-    optional guild_set              _set                = 9;        //è®¾ç½®å…¬ä¼šä¿¡æ¯ ok
-    optional guild_query            _query              = 10;       //æŸ¥è¯¢æœ¬å…¬ä¼šä¿¡æ¯ ok
-    optional guild_set_job          _set_job            = 11;       //ä¿®æ”¹æˆå‘˜æƒé™ ok
-    optional guild_add_hire         _add_hire           = 12;       //ä¸Šæ¶é›‡ä½£è‹±é›„ ok
-    optional guild_del_hire         _del_hire           = 13;       //ä¸‹æ¶é›‡ä½£è‹±é›„ ok
-    optional guild_query_hires      _query_hires        = 14;       //æŸ¥è¯¢å…¬ä¼šç”¨çš„é›‡ä½£è‹±é›„ ok
-    optional guild_hire_hero        _hire_hero          = 15;       //é›‡ä½£åˆ«äººçš„è‹±é›„ ok
-    optional guild_worship_req      _worship_req        = 16;       //è†œæ‹œè‹±é›„ ok
-    optional guild_worship_withdraw _worship_withdraw   = 17;       //é¢†è†œæ‹œå¥–åŠ± ok
-    optional guild_qurey_hh_detail  _query_hh_detail    = 18;       //é›‡ä½£è‹±é›„è¯¦æƒ…æŸ¥è¯¢ ok
-    required result                 _result             = 19[default = success];
-    optional guild_instance_query   _instance_query     = 20;       //å…¬ä¼šå‰¯æœ¬ç®€è¦ä¿¡æ¯
-    optional guild_instance_detail  _instance_detail    = 21;       //å…¬ä¼šå‰¯æœ¬è¯¦ç»†ä¿¡æ¯
-    optional guild_instance_start   _instance_start     = 22;       //å¼€å¯å…¬ä¼šå‰¯æœ¬
-    optional guild_instance_end_down     _instance_end       = 23;       //ç»“æŸå…¬ä¼šå‰¯æœ¬
-    optional guild_instance_drop    _instance_drop      = 24;       //ç”³è¯·å‰¯æœ¬æ‰è½
-    optional guild_instance_open    _instance_open      = 25;       //å¼€å¯å…¬ä¼šå‰¯æœ¬
-    optional guild_instance_apply   _instance_apply     = 26;       //ç”³è¯·å‰¯æœ¬æ‰è½
-    optional guild_drop_info        _drop_info          = 27;       //è¯·æ±‚åˆ†é…ç‰©å“ä¿¡æ¯
-    optional guild_drop_give        _drop_give          = 28;       //åˆ†ç‰©å“
-    optional guild_instance_damage  _instance_damage    = 29;       //è¾“å‡ºç»Ÿè®¡
-    optional guild_items_history    _items_history      = 30; // ç‰©å“åˆ†é…çºªå½•
-    optional guild_jump             _guild_jump         = 31; //æ’é˜Ÿ
-    optional guild_app_queue             _guild_app_queue          = 32; // down - è¯·æ±‚ç”³è¯·é˜Ÿåˆ—
+    optional guild_create           _create             = 1;        //´´½¨¹«»á ok
+    optional guild_dismiss          _dismiss            = 2;        //½âÉ¢¹«»á ok
+    optional guild_list             _list               = 3;        //»ñÈ¡¹«»áÁĞ±í ok
+    optional guild_search           _search             = 4;        //°´Ìõ¼ş²éÑ¯¹«»á ok
+    optional guild_join             _join               = 5;        //¼ÓÈë¹«»á ok
+    optional guild_join_confirm     _join_confirm       = 6;        //¼ÓÈë¹«»áÈ·ÈÏ ok
+    optional guild_leave            _guild_leave        = 7;        //Àë¿ª¹«»á ok
+    optional guild_kick             _kick               = 8;        //Ìß³ö¹«»á ok
+    optional guild_set              _set                = 9;        //ÉèÖÃ¹«»áĞÅÏ¢ ok
+    optional guild_query            _query              = 10;       //²éÑ¯±¾¹«»áĞÅÏ¢ ok
+    optional guild_set_job          _set_job            = 11;       //ĞŞ¸Ä³ÉÔ±È¨ÏŞ ok
+    optional guild_add_hire         _add_hire           = 12;       //ÉÏ¼Ü¹ÍÓ¶Ó¢ĞÛ ok
+    optional guild_del_hire         _del_hire           = 13;       //ÏÂ¼Ü¹ÍÓ¶Ó¢ĞÛ ok
+    optional guild_query_hires      _query_hires        = 14;       //²éÑ¯¹«»áÓÃµÄ¹ÍÓ¶Ó¢ĞÛ ok
+    optional guild_hire_hero        _hire_hero          = 15;       //¹ÍÓ¶±ğÈËµÄÓ¢ĞÛ ok
+    optional guild_worship_req      _worship_req        = 16;       //Ä¤°İÓ¢ĞÛ ok
+    optional guild_worship_withdraw _worship_withdraw   = 17;       //ÁìÄ¤°İ½±Àø ok
+    optional guild_qurey_hh_detail  _query_hh_detail    = 18;       //¹ÍÓ¶Ó¢ĞÛÏêÇé²éÑ¯ ok
+    required uint32                 _result             = 19;
+    optional guild_instance_query   _instance_query     = 20;       //¹«»á¸±±¾¼òÒªĞÅÏ¢
+    optional guild_instance_detail  _instance_detail    = 21;       //¹«»á¸±±¾ÏêÏ¸ĞÅÏ¢
+    optional guild_instance_start   _instance_start     = 22;       //¿ªÆô¹«»á¸±±¾
+    optional guild_instance_end_down     _instance_end       = 23;       //½áÊø¹«»á¸±±¾
+    optional guild_instance_drop    _instance_drop      = 24;       //ÉêÇë¸±±¾µôÂä
+    optional guild_instance_open    _instance_open      = 25;       //¿ªÆô¹«»á¸±±¾
+    optional guild_instance_apply   _instance_apply     = 26;       //ÉêÇë¸±±¾µôÂä
+    optional guild_drop_info        _drop_info          = 27;       //ÇëÇó·ÖÅäÎïÆ·ĞÅÏ¢
+    optional guild_drop_give        _drop_give          = 28;       //·ÖÎïÆ·
+    optional guild_instance_damage  _instance_damage    = 29;       //Êä³öÍ³¼Æ
+    optional guild_items_history    _items_history      = 30; // ÎïÆ··ÖÅä¼ÍÂ¼
+    optional guild_jump             _guild_jump         = 31; //²å¶Ó
+    optional guild_app_queue        _guild_app_queue          = 32; // down - ÇëÇóÉêÇë¶ÓÁĞ
     optional guild_instance_prepare   _instance_prepare = 33;
-    optional guild_members          _guild_members      = 34; // å…¬ä¼šæˆå‘˜åˆ—è¡¨
-    optional guild_stage_rank          _guild_stage_rank      = 35; // å…¬ä¼šå‰¯æœ¬æ’è¡Œæ¦œ
-	optional guild_set_jump          _set_jump            = 36;
+    optional guild_members          _guild_members      = 34; // ¹«»á³ÉÔ±ÁĞ±í
+    optional guild_stage_rank          _guild_stage_rank      = 35; // ¹«»á¸±±¾ÅÅĞĞ°ñ
+    optional guild_set_jump          _set_jump            = 36;
+    optional guild_send_mail	     _send_mail_reply 	  = 37; //È«Ìå³ÉÔ±ÓÊ¼ş
+}
+
+message guild_send_mail
+{
+	required uint32 _result = 1;
 }
 
 message guild_set_jump{
-   required result _result = 1;
+   required uint32 _result = 1;
 }
 
 message guild_instance_prepare{
-    required result _result = 1;
+    required uint32 _result = 1;
     required uint32 _left_time = 2;
 }
 message dps_rank{
@@ -1180,12 +1191,13 @@ message guild_members {
 }
 
 message guild_jump{
-    required result _result = 1;
+    required uint32 _result = 1;
     required guild_app_queue _app_queue = 2;
 }
 
 message guild_items_history{
-    repeated  guild_item_history _item_historys = 1;
+	required uint32  _isthere = 1;
+    repeated  guild_item_history _item_historys = 2;
 }
 message guild_item_history{
    required uint32           _item_id       =1;
@@ -1200,22 +1212,23 @@ message guild_challenger_damage {
 }
 
 message guild_instance_damage {
-    repeated guild_challenger_damage        _damages  = 3;
+	required uint32                         _isthere  = 1;
+    repeated guild_challenger_damage        _damages  = 2;
 }
 
 message guild_drop_give{
-   required result _result =1;
+   required uint32 _result =1;
 }
 
 message guild_drop_item_info{
-     required uint32 _item_id          = 1;    //ç‰©å“id
-     required uint32 _time_out_end = 2;  // è¶…æ—¶æ—¶é—´æˆ³
-     repeated uint32 _user_id =3;    //ç”³è¯·äººid
+     required uint32 _item_id          = 1;    //ÎïÆ·id
+     required uint32 _time_out_end = 2;  // ³¬Ê±Ê±¼ä´Á
+     repeated uint32 _user_id =3;    //ÉêÇëÈËid
 }
 
 message guild_drop_item{
-    required uint32 _raid_id = 1;    // å‰¯æœ¬id
-    repeated guild_instance_dps  _dps_list = 2; //dpsä¿¡æ¯
+    required uint32 _raid_id = 1;    // ¸±±¾id
+    repeated guild_instance_dps  _dps_list = 2; //dpsĞÅÏ¢
     repeated guild_drop_item_info _item_info = 3;
 }
 
@@ -1225,13 +1238,13 @@ message guild_instance_dps{
 }
 
 message guild_drop_info{
-   repeated guild_member     _members= 1; // å…¬ä¼šæˆå‘˜åˆ—è¡¨
-   repeated guild_drop_item   _items=2;   // å‰¯æœ¬æ‰è½ä¿¡æ¯
+   repeated guild_member     _members= 1; // ¹«»á³ÉÔ±ÁĞ±í
+   repeated guild_drop_item   _items=2;   // ¸±±¾µôÂäĞÅÏ¢
 }
 
 
 message guild_instance_apply {
-    required result _result = 1;
+    required uint32 _result = 1;
     required guild_app_queue _app_queue = 2;
 }
 
@@ -1259,7 +1272,7 @@ message  hp_drop{
 }
 message guild_instance_end_down {
      required guild_instance_summary _summary = 1;
-     required battle_result          _result = 2;
+     required uint32          _result = 2;
      repeated uint32                 _rewards = 3;
      repeated uint32                 _apply_rewards = 4;
      required uint32                 _stage_old_progress = 5;
@@ -1278,18 +1291,18 @@ message break_history {
 
 
  message guild_instance_open {
-    required result _result = 1;
+    required uint32 _result = 1;
     required uint32 _raid_id = 2;
     required uint32 _left_time = 3;
 }
 
 message guild_create {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
     optional guild_info _guild_info = 2;
 }
 
 message guild_dismiss {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_info {
@@ -1306,21 +1319,22 @@ message guild_summary {
     required string         _name       = 2;
     required uint32         _avatar     = 3;
     required string         _slogan     = 4;
-    required guild_join_t   _join_type  = 5;
+    required uint32   _join_type  = 5;
     required uint32         _join_limit = 6;
     required uint32         _member_cnt = 7;
     required user_summary   _president  = 8;
     optional uint32         _liveness   = 9;
     optional uint32         _can_jump   = 10;
+    optional uint32         _host_id    = 11;
 }
 
 message guild_member {
     required uint32         _uid      = 1;
-    required user_summary   _summary  = 2;         //ç®€è¦ä¿¡æ¯
-    required guild_job_t    _job      = 3;
-    required uint32         _last_login = 4;       // æœ€åç™»å…¥æ—¶é—´æˆ³
-    optional uint32         _active = 5;            //ä¸ƒæ—¥è´¡çŒ®æ´»è·ƒ
-    optional uint32         _join_instance_time = 6; //å‚åŠ å›¢æœ¬æŒ‘æˆ˜æ¬¡æ•°
+    required user_summary   _summary  = 2;         //¼òÒªĞÅÏ¢
+    required uint32    _job      = 3;
+    required uint32         _last_login = 4;       // ×îºóµÇÈëÊ±¼ä´Á
+    optional uint32         _active = 5;            //ÆßÈÕ¹±Ï×»îÔ¾
+    optional uint32         _join_instance_time = 6; //²Î¼ÓÍÅ±¾ÌôÕ½´ÎÊı
 }
 
 message guild_applier {
@@ -1330,23 +1344,23 @@ message guild_applier {
 
 message guild_list {
     repeated guild_summary  _guilds = 1;
-    required result _result = 2[default = success];
+    required uint32 _result = 2;
     optional uint32         _create_cost = 3;
 }
 
 message guild_search {
     optional guild_summary  _guilds = 1;
-    required result _result = 2[default = success];
+    required uint32 _result = 2;
     optional uint32         _create_cost = 3;
 }
 
 message guild_join {
-    enum join_result {
-        join_fail  = 0;        //è¿›å…¥å¤±è´¥
-        join_enter  = 1;        //è¿›å…¥å…¬ä¼š
-        join_wait   = 2;        //ç­‰å¾…æ‰¹å‡†
-    }
-    required join_result    _result         = 1;
+    //enum join_result {
+    //    join_fail  = 0;        //½øÈëÊ§°Ü
+    //    join_enter  = 1;        //½øÈë¹«»á
+     //   join_wait   = 2;        //µÈ´ıÅú×¼
+    //}
+    required uint32    _result         = 1;
     required uint32         _join_guild_id  = 2;
     optional guild_info     _guild_info     = 3;
     optional uint32         _cd_time        = 4;
@@ -1354,55 +1368,55 @@ message guild_join {
 }
 
 message guild_join_confirm {
-    required result         _result     = 1;
+    required uint32         _result     = 1;
     optional guild_member   _new_man    = 2;
 }
 
 message guild_leave {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_kick {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_set {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_query {
     optional guild_info             _info      = 1;
     optional guild_worship          _worship   = 2;
-    optional uint32                 _drop_info = 3; //  æ˜¯å¦æœ‰å¯ä»¥åˆ†é…çš„æ‰è½
-    optional uint32                 _to_chairman = 4; //å˜ä¸ºä¼šé•¿
+    optional uint32                 _drop_info = 3; //  ÊÇ·ñÓĞ¿ÉÒÔ·ÖÅäµÄµôÂä
+    optional uint32                 _to_chairman = 4; //±äÎª»á³¤
 }
 
 message guild_worship {
-    required uint32             _use_times      = 1;        //ä»Šå¤©å·²ä½¿ç”¨æ¬¡æ•°
-    repeated worship_reward     _rewards        = 2;        //å·²ç»å¾—åˆ°çš„å¥–åŠ±
-    required uint32             _times          = 3;        //è¢«è†œæ‹œæ¬¡æ•°
+    required uint32             _use_times      = 1;        //½ñÌìÒÑÊ¹ÓÃ´ÎÊı
+    repeated worship_reward     _rewards        = 2;        //ÒÑ¾­µÃµ½µÄ½±Àø
+    required uint32             _times          = 3;        //±»Ä¤°İ´ÎÊı
 }
 
 message guild_set_job {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_add_hire {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
     required uint32     _income     = 2;
 }
 
 message guild_del_hire {
-    required result     _result         = 1;
-    optional uint32     _hire_reward    = 2;        //é›‡ä½£çš„å¥–åŠ±
-    optional uint32     _stay_reward    = 3;        //å®ˆæŠ¤çš„å¥–åŠ±
-    optional uint32     _heroid         = 4;        //è‹±é›„ID
+    required uint32     _result         = 1;
+    optional uint32     _hire_reward    = 2;        //¹ÍÓ¶µÄ½±Àø
+    optional uint32     _stay_reward    = 3;        //ÊØ»¤µÄ½±Àø
+    optional uint32     _heroid         = 4;        //Ó¢ĞÛID
 }
 
 message guild_query_hires {
     repeated guild_hire_user    _users      = 1;
-    repeated uint32             _hire_uids  = 2;        //å·²ç»è¢«è‡ªå·±é›‡ä½£è¿‡è‹±é›„çš„ç©å®¶åˆ—è¡¨
-    required hire_from          _from       = 3;
+    repeated uint32             _hire_uids  = 2;        //ÒÑ¾­±»×Ô¼º¹ÍÓ¶¹ıÓ¢ĞÛµÄÍæ¼ÒÁĞ±í
+    required uint32          _from       = 3;
 }
 
 message guild_hire_user {
@@ -1410,7 +1424,7 @@ message guild_hire_user {
     required string             _name       = 2;
     required uint32             _level      = 3;
     required uint32             _avatar     = 4;
-    repeated hire_hero_summary  _heroes     = 5;        //ç©å®¶å‡ºç§Ÿçš„è‹±é›„åˆ—è¡¨
+    repeated hire_hero_summary  _heroes     = 5;        //Íæ¼Ò³ö×âµÄÓ¢ĞÛÁĞ±í
 }
 
 message hire_hero_summary {
@@ -1421,19 +1435,19 @@ message hire_hero_summary {
 }
 
 message guild_hire_hero {
-    required hire_result     _result     = 1;
-    optional hire_from  _from       = 2;
-    optional uint32     _uid        = 3;        //é›‡ä½£è‹±é›„çš„å±ä¸»id
-    optional hero       _hero       = 4;        //é›‡ä½£åˆ°è‹±é›„çš„æ•°æ®
+    required uint32     _result     = 1;
+    optional uint32  _from       = 2;
+    optional uint32     _uid        = 3;        //¹ÍÓ¶Ó¢ĞÛµÄÊôÖ÷id
+    optional hero       _hero       = 4;        //¹ÍÓ¶µ½Ó¢ĞÛµÄÊı¾İ
 }
 
 message guild_worship_req {
-    required result     _result     = 1;
+    required uint32     _result     = 1;
 }
 
 message guild_worship_withdraw {
-    required result             _result     = 1;
-    repeated worship_reward     _rewards    = 2;        //å·²ç»å¾—åˆ°çš„å¥–åŠ±
+    required uint32             _result     = 1;
+    repeated worship_reward     _rewards    = 2;        //ÒÑ¾­µÃµ½µÄ½±Àø
 }
 
 message guild_qurey_hh_detail {
@@ -1441,97 +1455,97 @@ message guild_qurey_hh_detail {
 }
 
 message worship_reward {
-    enum type {
-        gold        = 1;
-        diamond     = 2;
-    }
-    required type   _type   = 1;
+    //enum type {
+    //    gold        = 1;
+    //    diamond     = 2;
+    //}
+    required uint32   _type   = 1;
     optional uint32 _param1 = 2;
     optional uint32 _param2 = 3;
 }
 
-// è¿”åˆ©æ´»åŠ¨å¥–åŠ±
+// ·µÀû»î¶¯½±Àø
 message  activity_reward {
-    enum type {
-        rmb       = 1;           // å®çŸ³
-        money     = 2;           // é‡‘å¸
-        item      = 3;           // ç‰©å“
-        hero      = 4;           // è‹±é›„
-        rand_soul = 5;           // éšæœºçµé­‚çŸ³
-    }
-    optional type   _type   = 1; // ç‰©å“ç±»å‹
-    optional uint32 _id     = 2; // ç‰©å“id
-    optional uint32 _amount = 3; // ç‰©å“æ•°é‡
+    //enum type {
+    //    rmb       = 1;           // ±¦Ê¯
+    //    money     = 2;           // ½ğ±Ò
+    //    item      = 3;           // ÎïÆ·
+    //    hero      = 4;           // Ó¢ĞÛ
+    //    rand_soul = 5;           // Ëæ»úÁé»êÊ¯
+    //}
+    optional uint32   _type   = 1; // ÎïÆ·ÀàĞÍ
+    optional uint32 _id     = 2; // ÎïÆ·id
+    optional uint32 _amount = 3; // ÎïÆ·ÊıÁ¿
 }
 
 message activity_infos {
     repeated activity_info _activity_info = 1;
 }
 
-// ç”¨æˆ·å¥–åŠ±
+// ÓÃ»§½±Àø
 message activity_rewards {
-    optional uint32          _amount   = 1;  // æ¡ä»¶æ•°é‡
-    repeated activity_reward _rewards  = 2;  // æ´»åŠ¨å¥–åŠ±
-    optional dailyjob        _dailyjob = 3;  // ç”¨æˆ·æ´»åŠ¨ä¿¡æ¯
+    optional uint32          _amount   = 1;  // Ìõ¼şÊıÁ¿
+    repeated activity_reward _rewards  = 2;  // »î¶¯½±Àø
+    optional dailyjob        _dailyjob = 3;  // ÓÃ»§»î¶¯ĞÅÏ¢
 }
 
-// è¿”åˆ©æ´»åŠ¨ä¿¡æ¯
+// ·µÀû»î¶¯ĞÅÏ¢
 message activity_info {
-    enum type {
-        single_br_tavern  = 1;
-        combo_br_tavern   = 2;
-        single_gd_tavern  = 3;
-        combo_gd_tavern   = 4;
-        magic_soul_tavern = 5;
-        rmb_recharge      = 6;
-        diamond_consume   = 7;
-    }
-    optional uint32           _id         = 1;  // æ´»åŠ¨åºå·
-    optional type             _type       = 2;  // æ´»åŠ¨ç±»å‹
-    optional uint32           _start_time = 3;  // å¼€å§‹æ—¶é—´
-    optional uint32           _end_time   = 4;  // ç»“æŸæ—¶é—´
-    repeated activity_rewards _rewards    = 5;  // æ´»åŠ¨å¥–åŠ±
-    optional string           _title      = 6;  // æ´»åŠ¨åç§°
-    optional string           _desc       = 7;  // æ´»åŠ¨æè¿°
-    optional string           _rules      = 8;  // æ´»åŠ¨è§„åˆ™
+    //enum type {
+    //    single_br_tavern  = 1;
+    //    combo_br_tavern   = 2;
+    //    single_gd_tavern  = 3;
+    //    combo_gd_tavern   = 4;
+    //    magic_soul_tavern = 5;
+    //    rmb_recharge      = 6;
+    //    diamond_consume   = 7;
+    //}
+    optional uint32           _id         = 1;  // »î¶¯ĞòºÅ
+    optional uint32             _type       = 2;  // »î¶¯ÀàĞÍ
+    optional uint32           _start_time = 3;  // ¿ªÊ¼Ê±¼ä
+    optional uint32           _end_time   = 4;  // ½áÊøÊ±¼ä
+    repeated activity_rewards _rewards    = 5;  // »î¶¯½±Àø
+    optional string           _title      = 6;  // »î¶¯Ãû³Æ
+    optional string           _desc       = 7;  // »î¶¯ÃèÊö
+    optional string           _rules      = 8;  // »î¶¯¹æÔò
 }
 
-enum hire_from {
-    guild   = 0;
-    tbc     = 1;
-    stage   = 2;
-    excav   = 3;
-}
+//enum hire_from {
+//    guild   = 0;
+//    tbc     = 1;
+//    stage   = 2;
+//    excav   = 3;
+//}
 
-enum guild_join_t {
-    no_verify   = 1;        //ä¸éœ€è¦éªŒè¯
-    verify      = 2;        //éœ€è¦éªŒè¯æ‰èƒ½åŠ å…¥
-    closed      = 3;        //ä¸å…è®¸åŠ å…¥
-}
+//enum guild_join_t {
+//    no_verify   = 1;        //²»ĞèÒªÑéÖ¤
+//    verify      = 2;        //ĞèÒªÑéÖ¤²ÅÄÜ¼ÓÈë
+//    closed      = 3;        //²»ÔÊĞí¼ÓÈë
+//}
 
-enum guild_job_t {
-    chairman    = 1;
-    member      = 2;
-    elder       = 3;
-}
+//enum guild_job_t {
+//    chairman    = 1;
+//    member      = 2;
+//    elder       = 3;
+//}
 
 
-// èŠå¤©é¢‘é“
-enum chat_channel {
-    world_channel = 1;              // ä¸–ç•Œé¢‘é“
-    guild_channel = 2;              // å…¬ä¼šé¢‘é“
-    personal_channel    = 3;              // ç§èŠé¢‘é“
-}
+// ÁÄÌìÆµµÀ
+//enum chat_channel {
+//    world_channel = 1;              // ÊÀ½çÆµµÀ
+//    guild_channel = 2;              // ¹«»áÆµµÀ
+//    personal_channel    = 3;              // Ë½ÁÄÆµµÀ
+//}
 
 
 message cdkey_gift_reply {
-    enum cdkey_result {
-      success       = 0;  // æˆåŠŸ
-      already_used  = 1;  // å·²ç»è¢«ä½¿ç”¨
-      not_exists    = 2;  // ä¸å­˜åœ¨
-      once_only     = 3;  // ä»…èƒ½ä½¿ç”¨ä¸€æ¬¡
-    }
-    required cdkey_result _result   = 1;
+    //enum cdkey_result {
+    //  success       = 0;  // ³É¹¦
+    //  already_used  = 1;  // ÒÑ¾­±»Ê¹ÓÃ
+    //  not_exists    = 2;  // ²»´æÔÚ
+    //  once_only     = 3;  // ½öÄÜÊ¹ÓÃÒ»´Î
+    //}
+    required uint32 _result   = 1;
     optional res_pack     _pack     = 2;
 }
 
@@ -1544,58 +1558,63 @@ message res_pack {
 }
 
 message ask_magicsoul_reply {
-  repeated uint32 _id = 0 ; // å½“å‰é­‚åŒ£è‹±é›„åˆ—è¡¨ï¼Œ1å·ä½ä¸ºå½“æœˆçƒ­ç‚¹
+  repeated uint32 _id = 1 ; // µ±Ç°»êÏ»Ó¢ĞÛÁĞ±í£¬1ºÅÎ»Îªµ±ÔÂÈÈµã
 }
 
-// ç”¨äºå®¢æˆ·ç«¯å’ŒæœåŠ¡å™¨ä¹‹é—´é‡è¦æ•°æ®çš„md5æ ¡éªŒ
+// ÓÃÓÚ¿Í»§¶ËºÍ·şÎñÆ÷Ö®¼äÖØÒªÊı¾İµÄmd5Ğ£Ñé
 message important_data {
     required uint32             _money                = 1;
     required uint32             _rmb                  = 2;
-    repeated hero               _heroes               = 3; // æ’åºçš„ç©å®¶åˆ—è¡¨
-    repeated uint32             _items                = 4; // æ’åºçš„ç‰©å“åˆ—è¡¨ï¼Œ<<amount:11, id:10>>
+    repeated hero               _heroes               = 3; // ÅÅĞòµÄÍæ¼ÒÁĞ±í
+    repeated uint32             _items                = 4; // ÅÅĞòµÄÎïÆ·ÁĞ±í£¬<<amount:11, id:10>>
 }
 
-// æœˆå¡
+// ÔÂ¿¨
 message monthcard {
-    required uint32 _id               = 1; //æœˆå¡çš„id
-    required uint32 _expire_time      = 2; //æ­¤æœˆå¡çš„æˆªæ­¢æ—¥æœŸ
+    required uint32 _id               = 1; //ÔÂ¿¨µÄid
+    required uint32 _expire_time      = 2; //´ËÔÂ¿¨µÄ½ØÖ¹ÈÕÆÚ
 }
 
 message excavate_reply {
-    optional search_excavate_reply        _search_excavate_reply        = 1; // å¯»æ‰¾å®è—
-    optional query_excavate_data_reply    _query_excavate_data_reply    = 2; // æŸ¥è¯¢ç©å®¶å®è—ç›¸å…³æ•°æ®
-    optional query_excavate_history_reply _query_excavate_history_reply = 3; // å®è—å†å²è®°å½•æŸ¥è¯¢
-    optional query_excavate_battle_reply  _query_excavate_battle_reply  = 4; // å®è—å†å²è®°å½•æˆ˜æŠ¥æŸ¥è¯¢
-    optional set_excavate_team_reply      _set_excavate_team_reply      = 5; // è®¾ç½®çŸ¿ç‚¹é˜²å®ˆé˜µå®¹
+    optional search_excavate_reply        _search_excavate_reply        = 1; // Ñ°ÕÒ±¦²Ø
+    optional query_excavate_data_reply    _query_excavate_data_reply    = 2; // ²éÑ¯Íæ¼Ò±¦²ØÏà¹ØÊı¾İ
+    optional query_excavate_history_reply _query_excavate_history_reply = 3; // ±¦²ØÀúÊ·¼ÇÂ¼²éÑ¯
+    optional query_excavate_battle_reply  _query_excavate_battle_reply  = 4; // ±¦²ØÀúÊ·¼ÇÂ¼Õ½±¨²éÑ¯
+    optional set_excavate_team_reply      _set_excavate_team_reply      = 5; // ÉèÖÃ¿óµã·ÀÊØÕóÈİ
     optional excavate_start_battle_reply  _excavate_start_battle_reply  = 6;
     optional excavate_end_battle_reply    _excavate_end_battle_reply    = 7;
-    optional query_excavate_def_reply     _query_excavate_def_reply     = 8; // æŸ¥è¯¢åé˜²æ•°æ®
-    optional clear_excavate_battle_reply  _clear_excavate_battle_reply  = 9; // æ¸…é™¤å½“å‰æˆ˜æ–—
-    optional withdraw_excavate_hero_reply _withdraw_excavate_hero_reply = 10; // å¬å›è‹±é›„
-    optional draw_excavate_def_rwd_reply  _draw_excavate_def_rwd_reply  = 11; // é¢†å–é˜²å®ˆæˆåŠŸå¥–åŠ±
-    optional drop_excavate_reply          _drop_excavate_reply          = 12; // ä¸¢å¼ƒé˜²å®ˆçš„çŸ¿
+    optional query_excavate_def_reply     _query_excavate_def_reply     = 8; // ²éÑ¯Ğ­·ÀÊı¾İ
+    optional clear_excavate_battle_reply  _clear_excavate_battle_reply  = 9; // Çå³ıµ±Ç°Õ½¶·
+    optional draw_excavate_def_rwd_reply  _draw_excavate_def_rwd_reply  = 10; // ÁìÈ¡·ÀÊØ³É¹¦½±Àø
+    optional revenge_excavate_reply       _revenge_excavate_reply       = 11; // ¸´³ğ
+    optional draw_excav_res_reply         _draw_excav_res_reply         = 12; // »ñµÃ¿ó×ÊÔ´
+    optional withdraw_excavate_hero_reply _withdraw_excavate_hero_reply = 13; // ÕÙ»ØÓ¢ĞÛ
+}
+
+message revenge_excavate_reply {
+    optional excavate _excavate = 1; // ±¦²ØĞÅÏ¢
 }
 
 message search_excavate_reply {
-    enum search_result {
-        success    = 0 ;
-        failed     = 1 ;
-        lack_money = 2 ;
-    }
+    //enum search_result {
+    //    success    = 0 ;
+    //    failed     = 1 ;
+    //    lack_money = 2 ;
+    //}
 
-    required search_result  _result   = 1; // å¯»æ‰¾ç»“æœ
-    optional excavate       _excavate = 2; // å®è—ä¿¡æ¯
+    required uint32  _result   = 1; // Ñ°ÕÒ½á¹û
+    optional excavate       _excavate = 2; // ±¦²ØĞÅÏ¢
 }
 
 message query_excavate_data_reply {
-    repeated excavate           _excavate        = 1; // å®è—ä¿¡æ¯
-    required uint32             _searched_id     = 2; // æœåˆ°çŸ¿ç‚¹IDï¼Œ0è¡¨ç¤ºæ²¡æœ‰æœåˆ°çš„çŸ¿
-    required uint32             _search_times    = 3; // å½“å¤©æœç´¢æ¬¡æ•°
-    required uint32             _last_search_ts  = 4; // ä¸Šæ¬¡æœç´¢æ—¶é—´
-    optional uint32             _attacking_id    = 5; // æ­£åœ¨æ”»æ‰“çš„çŸ¿IDï¼Œå¯èƒ½æ²¡æœ‰
-    repeated excavate_self_hero _bat_heroes      = 6; // è‡ªå·±çš„è¿›æ”»è‹±é›„ä¿¡æ¯
-    optional excavate_cfg       _cfg             = 7; // å…¨å±€é…ç½®
-    optional hire_data          _hire            = 8; // é›‡ä½£æ•°æ®
+    repeated excavate           _excavate        = 1; // ±¦²ØĞÅÏ¢
+    required uint32             _searched_id     = 2; // ËÑµ½¿óµãID£¬0±íÊ¾Ã»ÓĞËÑµ½µÄ¿ó
+    required uint32             _search_times    = 3; // µ±ÌìËÑË÷´ÎÊı
+    required uint32             _last_search_ts  = 4; // ÉÏ´ÎËÑË÷Ê±¼ä
+    optional uint32             _attacking_id    = 5; // ÕıÔÚ¹¥´òµÄ¿óID£¬¿ÉÄÜÃ»ÓĞ
+    repeated excavate_self_hero _bat_heroes      = 6; // ×Ô¼ºµÄ½ø¹¥Ó¢ĞÛĞÅÏ¢
+    optional excavate_cfg       _cfg             = 7; // È«¾ÖÅäÖÃ
+    optional hire_data          _hire            = 8; // ¹ÍÓ¶Êı¾İ
 }
 
 message excavate_self_hero {
@@ -1604,79 +1623,84 @@ message excavate_self_hero {
 }
 
 message excavate_cfg {
-    optional uint32         _attack_timeout     = 1;     // æˆ˜æ–—è¶…æ—¶æ—¶é—´
+    optional uint32         _attack_timeout     = 1;     // Õ½¶·³¬Ê±Ê±¼ä
 }
 
 message excavate_team {
-    required uint32             _team_id    = 1; // é˜²å®ˆé˜Ÿä¼id
-    optional user_summary       _player     = 2; // ç©å®¶ä¿¡æ¯
-    repeated hero_summary       _hero_bases = 3; // é˜²å®ˆè‹±é›„åŸºç¡€ä¿¡æ¯
-    repeated hero_dyna          _hero_dynas = 4; // é˜²å®ˆè‹±é›„åŠ¨æ€ä¿¡æ¯
-    required uint32             _res_got    = 5; // å®è—ç´¯è®¡å·²è¢«å¼€é‡‡çš„èµ„æºé‡
-    optional uint32             _svr_id     = 6; // æœåŠ¡å™¨ID
-    optional uint32             _display_svr_id = 7; // æ˜¾ç¤ºçš„æœåŠ¡å™¨å
-    optional string             _svr_name       = 8; // æœåŠ¡å™¨å
+    required uint32             _team_id        = 1; // ·ÀÊØ¶ÓÎéid
+    optional user_summary       _player         = 2; // Íæ¼ÒĞÅÏ¢
+    repeated hero_summary       _hero_bases     = 3; // ·ÀÊØÓ¢ĞÛ»ù´¡ĞÅÏ¢
+    repeated hero_dyna          _hero_dynas     = 4; // ·ÀÊØÓ¢ĞÛ¶¯Ì¬ĞÅÏ¢
+    required uint32             _res_got        = 5; // ±¦²ØÀÛ¼ÆÒÑ±»¿ª²ÉµÄ×ÊÔ´Á¿
+    optional uint32             _svr_id         = 6; // ·şÎñÆ÷ID
+    optional uint32             _display_svr_id = 7; // ÏÔÊ¾µÄ·şÎñÆ÷ID
+    optional string             _svr_name       = 8; // ·şÎñÆ÷Ãû
+    optional uint32             _team_gs        = 9; // ¶ÓÎéÕ½Á¦
+    optional uint32             _speed          = 10; // µ±Ç°¿ª²ÉËÙ¶È
+    optional uint32             _robbed         = 11; // ¿É±»ÂÓ¶áµÄÊıÁ¿
 }
 
 message excavate {
-    enum owner{
-        mine    = 0;
-        others  = 1;
-        monster = 2;
-    }
-    enum state{
-        searched    = 1;        // åˆšè¢«æœç´¢åˆ°çš„ä¿æŠ¤æ€
-        battle      = 2;        // æˆ˜æ–—çŠ¶æ€
-        prepare     = 3;        // æ”»ä¸‹åçš„å‡†å¤‡æ€
-        occupy      = 4;        // å æ®çŠ¶æ€
-        protect     = 5;        // ä¿æŠ¤çŠ¶æ€
-    }
-    required owner              _owner          = 1; // æ‰€æœ‰è€…
-    required uint32             _id             = 2; // å®è—ID
-    required uint32             _type_id        = 3; // å®è—ç±»å‹ID
-    repeated excavate_team      _team           = 4; // é˜²å®ˆé˜Ÿä¼
-    required state              _state          = 5; // çŠ¶æ€
-    optional uint32             _state_end_ts   = 6; // çŠ¶æ€åˆ°æœŸæ—¶é—´ï¼Œéƒ¨åˆ†çŠ¶æ€æœ‰æ•ˆ
-    optional uint32             _produce_speed  = 7; // Per Minute
-    optional uint32             _storage        = 8; // æ€»è´®è—é‡
+    //enum owner{
+    //    mine    = 0;
+    //    others  = 1;
+    //    robot   = 2;
+    //}
+    //enum state{
+   //     searched    = 1;        // ¸Õ±»ËÑË÷µ½µÄ±£»¤Ì¬
+   //     battle      = 2;        // Õ½¶·×´Ì¬
+   //     shield      = 3;        // ±£»¤Ì¬
+   //     occupy      = 4;        // Õ¼¾İ×´Ì¬
+   //     protect     = 5;        // ¿İ½ß×´Ì¬
+   //     dead        = 6;        // ÒÑ¾­²ÉÍêµÄ
+   // }
+    required uint32              _owner          = 1; // ËùÓĞÕß
+    required uint32             _id             = 2; // ±¦²ØID
+    required uint32             _type_id        = 3; // ±¦²ØÀàĞÍID
+    repeated excavate_team      _team           = 4; // ·ÀÊØ¶ÓÎé
+    required uint32              _state          = 5; // ×´Ì¬
+    optional uint32             _state_end_ts   = 6; // ×´Ì¬µ½ÆÚÊ±¼ä£¬²¿·Ö×´Ì¬ÓĞĞ§
+    optional uint32             _create_time    = 7; // ´´½¨Ê±¼ä
 }
 
 message excavate_history {
-    enum def_result {
-        win     = 0;
-        fail    = 1;
-    }
+    //enum def_result {
+    //    win     = 0;
+    //    fail    = 1;
+   // }
 
-    required string _id             = 1; // è®°å½•id
-    required uint32 _excavate_id    = 2; // å®è—id
-    required def_result _result     = 3; // æˆ˜æ–—ç»“æœ
-    required string _enemy_name     = 4; // æ•Œäººå§“å
-    optional uint32 _enemy_svrid    = 5; // æ•ŒäººæœåŠ¡å™¨ID
-    optional string _enemy_svrname  = 6; // æ•ŒäººæœåŠ¡å™¨å
-    required uint32 _time           = 7; // æˆ˜æ–—æ—¶é—´
-    optional uint32 _vatility       = 8; // å¯é¢†å–çš„ä½“åŠ›
+    required string _id             = 1; // ¼ÇÂ¼id
+    required uint32 _excavate_id    = 2; // ±¦²Øid
+    required uint32 _result     = 3; // Õ½¶·½á¹û
+    required string _enemy_name     = 4; // µĞÈËĞÕÃû
+    optional uint32 _enemy_svrid    = 5; // µĞÈË·şÎñÆ÷ID
+    optional string _enemy_svrname  = 6; // µĞÈË·şÎñÆ÷Ãû
+    required uint32 _time           = 7; // Õ½¶·Ê±¼ä
+    optional uint32 _vatility       = 8; // ¿ÉÁìÈ¡µÄÌåÁ¦
+    repeated excavate_reward _reward = 9; // Õ½¶·»ñµÃµÄ½±Àø
 }
 
 message query_excavate_history_reply {
-    repeated excavate_history _excavate_history = 1; // å®è—å†å²è®°å½•
+    repeated excavate_history _excavate_history = 1; // ±¦²ØÀúÊ·¼ÇÂ¼
+    optional uint32           _draw_def_vitality = 2; // ½ñÌìÁìÈ¡µÄ·ÀÊØÌåÁ¦ÊıÁ¿
 }
 
 message excavate_battle_hero {
-    required hero_summary   _base   = 1; // è‹±é›„ç®€è¦ä¿¡æ¯
-    required hero_dyna      _dyna   = 2; // è‹±é›„åŠ¨æ€æ•°æ®
+    required hero_summary   _base   = 1; // Ó¢ĞÛ¼òÒªĞÅÏ¢
+    required hero_dyna      _dyna   = 2; // Ó¢ĞÛ¶¯Ì¬Êı¾İ
 }
 
 message excavate_battle_team {
-    required user_summary         _player = 1; // ç©å®¶ä¿¡æ¯
-    repeated excavate_battle_hero _hero   = 2; // è‹±é›„ä¿¡æ¯
+    required user_summary         _player = 1; // Íæ¼ÒĞÅÏ¢
+    repeated excavate_battle_hero _hero   = 2; // Ó¢ĞÛĞÅÏ¢
 }
 
 message excavate_battle {
-    required excavate_battle_team _self_team = 1; // èƒœåˆ©é˜Ÿä¼ä¿¡æ¯
-    required excavate_battle_team _oppo_team = 2; // å¤±è´¥é˜Ÿä¼ä¿¡æ¯
-    required battle_result        _result    = 3; // selfçš„èƒœè´Ÿæƒ…å†µ
-    required uint32               _record_id = 4; // å½•åƒid
-    required uint32               _record_svrid     = 5; // å½•åƒæ‰€åœ¨svrid
+    required excavate_battle_team _self_team = 1; // Ê¤Àû¶ÓÎéĞÅÏ¢
+    required excavate_battle_team _oppo_team = 2; // Ê§°Ü¶ÓÎéĞÅÏ¢
+    required uint32        _result    = 3; // selfµÄÊ¤¸ºÇé¿ö
+    required uint32               _record_id = 4; // Â¼Ïñid
+    required uint32               _record_svrid     = 5; // Â¼ÏñËùÔÚsvrid
 }
 
 message query_excavate_battle_reply {
@@ -1684,65 +1708,80 @@ message query_excavate_battle_reply {
 }
 
 message set_excavate_team_reply {
-    enum result {
-        success = 0 ;
-        failed  = 1 ;
-        expired = 2 ; // å®è—è¿‡æœŸæ¶ˆå¤±
-        fall    = 3 ; // å®è—å¤±å®ˆ
-    }
+    //enum result {
+    //    success = 0 ;
+    //    failed  = 1 ;
+    //    expired = 2 ; // ±¦²Ø¹ıÆÚÏûÊ§
+    //    fall    = 3 ; // ±¦²ØÊ§ÊØ
+    //}
 
-    required result _result = 1;
+    required uint32   _result  = 1;
+    optional excavate _mine    = 2;
 }
 
 message excavate_start_battle_reply {
-    required result     _result     = 1[default = success];
+    required uint32     _result     = 1;
     required uint32     _rseed      = 2;
-    repeated hero       _hero_bases = 3;            // å¯¹æ‰‹è‹±é›„å…¨é‡ä¿¡æ¯
-    repeated hero_dyna  _hero_dynas = 4;            // å¯¹æ‰‹è‹±é›„åŠ¨æ€ä¿¡æ¯
+    repeated hero       _hero_bases = 3;            // ¶ÔÊÖÓ¢ĞÛÈ«Á¿ĞÅÏ¢
+    repeated hero_dyna  _hero_dynas = 4;            // ¶ÔÊÖÓ¢ĞÛ¶¯Ì¬ĞÅÏ¢
 }
 
 message excavate_end_battle_reply {
-    required battle_result      _result    = 1[default = victory];  //æŠŠå®¢æˆ·ç«¯ä¸Šä¼ çš„ç»“æœè¿”å›ï¼Œæ–¹ä¾¿å®¢æˆ·ç«¯å¤„ç†
-    optional excavate           _excavate  = 2;    //æ”»å ä¹‹åä¸‹å‘æœ€æ–°çš„å®è—æ•°æ®
-    optional excavate_reward    _reward    = 3;    //æ”»å ä¹‹åçš„å¥–åŠ±
+    //enum mine_battle_result {
+    //  success = 0;
+    //  timeout = 1;
+    //}
+    optional uint32      _result    = 1;  //°Ñ¿Í»§¶ËÉÏ´«µÄ½á¹û·µ»Ø£¬·½±ã¿Í»§¶Ë´¦Àí
+    optional excavate           _excavate  = 2;    //¹¥Õ¼Ö®ºóÏÂ·¢×îĞÂµÄ±¦²ØÊı¾İ
+    repeated excavate_reward    _reward    = 3;    //¹¥Õ¼Ö®ºóµÄ½±Àø
+    optional uint32 _mine_battle_result = 4; // Õû³¡Õ½ÒÛµÄ½á¹û
+}
+
+message draw_excav_res_reply {
+    optional uint32          _diamond = 1;  // ·ÀÊØµÃµ½µÄ×êÊ¯
+    repeated excavate_reward _reward  = 2;  // ¿ó±¾ÉíµÄ½±Àø
 }
 
 message excavate_reward {
-    enum type {
-        gold        = 1;
-        diamond     = 2;
-        item        = 3;
-    }
-    required type   _type   = 1;
-    optional uint32 _param1 = 2;
-    optional uint32 _param2 = 3;
+    //enum type {
+    //    gold        = 1;
+    //    diamond     = 2; 
+    //    item        = 3;
+    //    wood        = 4;
+    //    iron        = 5;
+    //    crystal     = 6;		
+    //}
+    required uint32   _type    = 1;
+    optional uint32 _team_id = 2;
+    optional uint32 _param1  = 3;
+    optional uint32 _param2  = 4;
 }
 
 message query_excavate_def_reply {
-    optional excavate _excavate         = 1; // å®è—ä¿¡æ¯ï¼Œå¦‚æœè¦åé˜²çš„çŸ¿å·²ç»å¤±æ•ˆåˆ™æ²¡æœ‰å€¼
+    optional excavate _excavate         = 1; // ±¦²ØĞÅÏ¢£¬Èç¹ûÒªĞ­·ÀµÄ¿óÒÑ¾­Ê§Ğ§ÔòÃ»ÓĞÖµ
 }
 
 message clear_excavate_battle_reply {
-    required result _result     = 1[default = success];
+    required uint32 _result     = 1;
 }
 
 message withdraw_excavate_hero_reply {
-    required result _result     = 1[default = success];
+    required uint32 _result     = 1;
 }
 
 message draw_excavate_def_rwd_reply {
-    required result _result         = 1[default = success];
-    optional uint32 _draw_vitality  = 2;        // é¢†å–åˆ°çš„ä½“åŠ›å¥–åŠ±
+    required uint32 _result         = 1;
+    optional uint32 _draw_vitality  = 2;        // ÁìÈ¡µ½µÄÌåÁ¦½±Àø
 }
 
 message drop_excavate_reply {
-    required result _result             = 1[default = success];
+    required uint32 _result             = 1;
     optional excavate_reward _reward    = 2;
 }
 
 message change_server_reply {
-    required server_opt_result   _result        = 1;
-    repeated server_info         _server_info   = 2; // æœåŠ¡å™¨åˆ—è¡¨è¿”å›
+    required uint32   _result        = 1;
+    repeated server_info         _server_info   = 2; // ·şÎñÆ÷ÁĞ±í·µ»Ø
 }
 
 message server_info {
@@ -1752,41 +1791,41 @@ message server_info {
     optional uint32     _player_level   = 4;
 }
 
-// å…¬ä¼šå‰¯æœ¬
+// ¹«»á¸±±¾
 message guild_instance_query {
-    enum is_can_jump {
-        true     = 1;
-        false    = 2;
-    }
+    //enum is_can_jump {
+     //   guild_true     = 1;
+    //    guild_false    = 2;
+    //}
     required uint32 _current_raid_id = 1;
     repeated guild_instance_summary _summary = 2;
     optional uint32   _stage_pass = 3;
-    required is_can_jump _is_can_jump = 4;
+    required uint32 _is_can_jump = 4;
 }
 message guild_chapter {
     required uint32 _id           =1;
-    required uint32 _progress     =2; //ä¸‡åˆ†æ¯”
+    required uint32 _progress     =2; //Íò·Ö±È
     required uint32 _begin_time   =3;
     required uint32 _rest_times   =4;
     required uint32 _cur_stage_id =5;
 }
 
 message guild_instance_detail {
-    enum challenger_status {
-        battle     = 1;
-        prepare    = 2;
-    }
+    //enum challenger_status {
+    //    battle     = 1;
+    //    prepare    = 2;
+    //}
     required uint32                         _stage = 1;
     required uint32                         _wave = 2;
     repeated uint32                         _hp   = 3;
     repeated guild_instance_record          _record = 4;
     optional guild_challenger               _challenger = 5;
-    optional challenger_status  _challenger_status = 6; // æŒ‘æˆ˜çŠ¶æ€
+    optional uint32  _challenger_status = 6; // ÌôÕ½×´Ì¬
     
 }
 
 message guild_challenger {
-  required user_summary _summary  = 1;        //ç®€è¦ä¿¡æ¯
+  required user_summary _summary  = 1;        //¼òÒªĞÅÏ¢
 
 }
 
@@ -1803,21 +1842,21 @@ message guild_instance_summary {
     required uint32                 _stage_id = 2;
     required uint32                 _left_time = 3;
     required uint32                 _start_time = 4;
-    required uint32                 _progress = 5; //ç« èŠ‚è¿›åº¦
-    required uint32                 _stage_progress = 6; //å½“å‰å…³å¡è¿›åº¦
+    required uint32                 _progress = 5; //ÕÂ½Ú½ø¶È
+    required uint32                 _stage_progress = 6; //µ±Ç°¹Ø¿¨½ø¶È
     optional uint32                 _battle_user_id = 7;
 }
 
 message guild_instance_item{
-enum drop_state {
-    no_apply     = 1;
-    apply        = 2;
-}
+//enum drop_state {
+ //   no_apply     = 1;
+ //   apply        = 2;
+//}
     required uint32     _item_id = 1;
     required uint32     _num = 2;
-    required drop_state _state = 3;
+    required uint32 _state = 3;
     required uint32     _apply_num = 4;
-    required uint32     _able_app_count = 5; //å¯ç”³è¯·æ•°é‡
+    required uint32     _able_app_count = 5; //¿ÉÉêÇëÊıÁ¿
 }
 
 
@@ -1839,17 +1878,17 @@ message query_split_data_reply {
 }
 
 message query_split_return_reply {
-    repeated uint32 _items       = 1; // <<amount:11, id:10>> è¿”è¿˜è£…å¤‡ã€é™„é­”ææ–™ã€ç»éªŒé“å…·ã€çµé­‚çŸ³
-    required uint32 _gold        = 2; // é‡‘å¸
-    required uint32 _skill_point = 3; // æŠ€èƒ½ç‚¹æ•°
+    repeated uint32 _items       = 1; // <<amount:11, id:10>> ·µ»¹×°±¸¡¢¸½Ä§²ÄÁÏ¡¢¾­ÑéµÀ¾ß¡¢Áé»êÊ¯
+    required uint32 _gold        = 2; // ½ğ±Ò
+    required uint32 _skill_point = 3; // ¼¼ÄÜµãÊı
 }
 
 message split_hero_reply {
-    required result _result = 1;
+    required uint32 _result = 1;
     optional hero   _hero   = 2;
 }
 
-//ä¸–ç•Œæ¯begin
+//ÊÀ½ç±­begin
 message worldcup_reply {
     optional worldcup_query_reply  _worldcup_query_reply  = 1;
     optional worldcup_submit_reply _worldcup_submit_reply = 2;  
@@ -1871,13 +1910,13 @@ message worldcup_query_reply {
 }
 
 message worldcup_submit_reply {
-    required result _result = 1;
+    required uint32 _result = 1;
 }
 
-//ä¸–ç•Œæ¯ending
+//ÊÀ½ç±­ending
 
 message battle_check_fail {
-    required uint32 _checkid = 1;    //æˆ˜æ–—æµæ°´å·
+    required uint32 _checkid = 1;    //Õ½¶·Á÷Ë®ºÅ
 }
 
 message super_link {
@@ -1892,19 +1931,19 @@ message ranklist_item {
 }
 
 message query_ranklist_reply {
-    enum rank_type {
-        guildliveness = 1 ;     //å…¬ä¼šæ´»è·ƒæ’è¡Œæ¦œ
-        excavate_rob  = 2;      //æ å¤ºæ¦œ
-        excavate_gold = 3;      //é‡‘å¸å¼€é‡‡æ¦œ
-        excavate_exp  = 4;      //ç»éªŒè¯è†å¼€é‡‡æ¦œ
-        top_gs        = 5;      //å·…å³°æˆ˜åŠ›æ¦œ
-        full_hero_gs  = 6;      //å…¨å‘˜æˆ˜åŠ›æ¦œ
-        hero_team_gs  = 7;      //å°é˜Ÿæˆ˜åŠ›æ¦œ
-        hero_evo_star = 8;      //è‹±é›„è¿›åŒ–æ¦œ
-        hero_arousal  = 9;      //ä¸“å±è£…å¤‡æ´—ç»ƒæ¦œ
-        top_arena     = 10;     //å·…å³°ç«æŠ€åœº
-    }
-    required rank_type      _rank_type      = 1;
+    //enum rank_type {
+    //    guildliveness = 1 ;     //¹«»á»îÔ¾ÅÅĞĞ°ñ
+    //    excavate_rob  = 2;      //ÂÓ¶á°ñ
+    //    excavate_gold = 3;      //½ğ±Ò¿ª²É°ñ
+    //    excavate_exp  = 4;      //¾­ÑéÒ©¸à¿ª²É°ñ
+    //    top_gs        = 5;      //áÛ·åÕ½Á¦°ñ
+    //    full_hero_gs  = 6;      //È«Ô±Õ½Á¦°ñ
+    //    hero_team_gs  = 7;      //Ğ¡¶ÓÕ½Á¦°ñ
+    //    hero_evo_star = 8;      //Ó¢ĞÛ½ø»¯°ñ
+    //    hero_arousal  = 9;      //×¨Êô×°±¸Ï´Á·°ñ
+    //    top_arena     = 10;     //áÛ·å¾º¼¼³¡
+    //}
+    required uint32      _rank_type      = 1;
     repeated ranklist_item  _ranklist_item  = 2;
     optional uint32         _self_ranking   = 3;
     optional ranklist_item  _self_item      = 4;
@@ -1917,48 +1956,51 @@ message request_guild_log_reply{
 
 message guild_log{
   required uint32 _id = 1;
-  repeated string _params = 2;
-  required uint32  _time = 3;
+  repeated guild_log_content _guild_log_content = 2;
+  required uint32  _date = 3;
 } 
+message guild_log_content{
+	required uint32 _time =1;
+	required string _content =2;
+}
 
 message client_update_version{
     required uint32     _version = 1;
 }
 
 message query_act_stage_reply{
-    repeated uint32     _opened_act_stage = 1;      // å¼€å¯çš„æ´»åŠ¨å…³å¡åˆ—è¡¨
+    repeated uint32     _opened_act_stage = 1;      // ¿ªÆôµÄ»î¶¯¹Ø¿¨ÁĞ±í
 }
 message fb_attention_reply {
-    required uint32   _attention = 1; //å…³æ³¨
+    required uint32   _attention = 1; //¹Ø×¢
 }
 
-//è¿ç»­å……å€¼æ´»åŠ¨
+//Á¬Ğø³äÖµ»î¶¯
 
 message continue_pay_reply{
 	required uint32 _time=1;
-	repeated uint32 _status = 2;//çŠ¶æ€ 1=å·²é¢†å– 2=è¿‡æœŸ 3=æœªå¼€å¯ 4=æ­£åœ¨è¿›è¡Œ
+	repeated uint32 _status = 2;//×´Ì¬ 1=ÒÑÁìÈ¡ 2=¹ıÆÚ 3=Î´¿ªÆô 4=ÕıÔÚ½øĞĞ
 	
 }
 
-//å……å€¼è¿”åˆ©
+//³äÖµ·µÀû
 
 message recharge_rebate_reply
 {
 	required uint32 _time=1;
-	required uint32 _status = 2;//çŠ¶æ€ 1=å­˜å‚¨é˜¶æ®µ 2=è¿”åˆ©é˜¶æ®µ
-	required uint32 _recharge_money = 3;//å­˜å‚¨é˜¶æ®µ å­˜å‚¨money and è¿”åˆ©é˜¶æ®µ é’»çŸ³
+	required uint32 _status = 2;//×´Ì¬ 1=´æ´¢½×¶Î 2=·µÀû½×¶Î
+	required uint32 _recharge_money = 3;//´æ´¢½×¶Î ´æ´¢money and ·µÀû½×¶Î ×êÊ¯
 	optional uint32 _get_day = 4;
-	optional uint32 _get_status = 5; //è¿”åˆ©é˜¶æ®µ å·²ç»é¢†å–çš„é’»çŸ³
+	optional uint32 _get_status = 5; //·µÀû½×¶Î ÒÑ¾­ÁìÈ¡µÄ×êÊ¯
 }
 
-//å¤©å¤©ä¹
+//ÌìÌìÀÖ
 
 message every_day_happy_reply
 {
-	required uint32 _status = 5; //1 å¼€å¯å¤©å¤©ä¹ 2 é¢†å–å¥–åŠ±
-	required uint32 _goldcard_number = 1;//é‡‘å¡
-	required uint32 _silvercard_number = 2;//é“¶å¡
-	required uint32 _coppercard_number = 3;//é“œå¡
-        repeated activity_reward _rewards = 4;  //é“å…·ids
+	required uint32 _status = 5; //1 ¿ªÆôÌìÌìÀÖ 2 ÁìÈ¡½±Àø
+	required uint32 _goldcard_number = 1;//½ğ¿¨
+	required uint32 _silvercard_number = 2;//Òø¿¨
+	required uint32 _coppercard_number = 3;//Í­¿¨
+        repeated activity_reward _rewards = 4;  //µÀ¾ßids
 }
-

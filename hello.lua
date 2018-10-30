@@ -7,7 +7,6 @@ pcall(function()
 	require("LocalString")
 	require("tools")
 	require("edebug")
-	require("maingameproject")
 	ed.logfile = logfile
 end)
 
@@ -61,7 +60,9 @@ local initFont = function()
 end
 function loadAllFiles()
 	for i, v in ipairs(ed.needLoadFiles) do
+		--ed.Debug_Msg("start requie "..v)
 		require(v)
+		--ed.Debug_Msg("end requie "..v)
 	end
 end
 local scene_stack = {}
@@ -325,16 +326,42 @@ function createAnimation(resource, scale, aniType)
 end
 ed.createAnimation = createAnimation;
 
+ed.debug_modelog = true
+function Debug_Msg(...)
+    --if do_battle_log and not EDFLAGSVR then
+	    --self.battleLog = getBtlog()
+		print(...)
+		local ss = string.format(...)
+	    if ed.debug_modelog then
+	    	local folder = CCFileUtils:sharedFileUtils():getWritablePath()
+			--if LegendPlatformFLAG==ed.PlatformCode.CC_PLATFORM_ANDROID then
+			--	folder = CCFileUtils:sharedFileUtils():getResourcePath()
+			--end
+	    	local path = string.format("%s/%s.log", folder, os.date("%Y-%m-%d_%H"))--os.date("%Y-%m-%d %H-%M-%S")
+	    	local file = io.open(path, "a")
+	    	if file then
+	    		file:write(ss)
+				file:write("\n")
+				file:flush()
+	    		file:close()
+	    	end
+	    end
+    --end
+end
+ed.Debug_Msg = Debug_Msg
+
 xpcall(function()
 	local ed = ed
 	ed.run_with_scene = true
 	print("1")
+	ed.Debug_Msg("start game main")
+	require("maingameproject")
 	loadAllFiles()
-	print("2")
+	ed.Debug_Msg("2")
 	initFont()
-	print("3")
+	ed.Debug_Msg("3")
 	initGcTime()
-	print("4")
+	ed.Debug_Msg("4")
 	main()
 end, EDDebug)
 		

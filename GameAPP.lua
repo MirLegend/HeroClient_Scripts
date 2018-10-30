@@ -55,9 +55,9 @@ function GameApp.connectServer(ip, port)
 	serverIp = ip;
 	serverPort = port
 	local ret, err = c.ziyu_connect(ip, port)
-	print("connectServer ip:"..ip)
+	ed.Debug_Msg("connectServer ip:"..ip)
 	if not ret then
-		print("connect error!!  can not connect to "..serverIp.." port:"..serverPort)
+		ed.Debug_Msg("connect error!!  can not connect to "..serverIp.." port:"..serverPort)
 		return
 	end
 end
@@ -84,7 +84,7 @@ function GameApp.Hello()
 end
 
 function GameApp.SendMsg(maincmd, subcmd, msg)
-	print("[GameApp.lua|SendMsg] GameApp.SendMsg: " .. maincmd..""..subcmd)
+	ed.Debug_Msg("[GameApp.lua|SendMsg] GameApp.SendMsg: " .. maincmd..""..subcmd)
 	c.ziyu_send(maincmd, subcmd, msg)
 end
 
@@ -125,7 +125,7 @@ end
 
 --有待优化 存入registry中
 function onConnected()
-	print("lua =============  onConnected curser: "..curserver)
+	ed.Debug_Msg("lua =============  onConnected curser: "..curserver)
 	bConnected = true
 	
 	--连接后 第一步是hello下
@@ -138,13 +138,13 @@ end
 
 --有待优化 存入registry中
 function onConnectedFail()
-	print("lua =============  onConnectedFail")
+	ed.Debug_Msg("lua =============  onConnectedFail")
 	bConnected = false
 end
 
 --有待优化 存入registry中
 function onConnectedClosed()
-	print("lua =============  onConnectedClosed")
+	ed.Debug_Msg("lua =============  onConnectedClosed")
 	bConnected = false
 end
 
@@ -154,7 +154,7 @@ end
 
 --有待优化 存入registry中
 function onNetMessage(mainCmd, subCmd, buffer)
-	print("onNetMessage ============================================= cmd:"..mainCmd.." subCmd:"..subCmd)
+	ed.Debug_Msg("onNetMessage ============================================= cmd:"..mainCmd.." subCmd:"..subCmd)
 	
 	if mainCmd == 90 then --login cmd
 		if subCmd == 2 then
@@ -164,19 +164,19 @@ function onNetMessage(mainCmd, subCmd, buffer)
 				ed.LegendLog("[netword.lua|recv] ERROR | Decode message failed | " .. err)
 				return
 			end
-			print("HelloCB result: "..msg.result)
-			print("HelloCB version: "..msg.version)
-			print("HelloCB extraData: "..msg.extraData)
+			ed.Debug_Msg("HelloCB result: "..msg.result)
+			ed.Debug_Msg("HelloCB version: "..msg.version)
+			ed.Debug_Msg("HelloCB extraData: "..msg.extraData)
 			GameApp.Login(g_accountName, g_password)
 		elseif subCmd == 6 then
 			--local result = protobuf.decode("client_loginserver.LoginFailed", buffer)
 			local result, err = cl.LoginFailed():Parse(buffer)
-			print("LoginFailed failedcode: "..result.failedcode.." datas:"..result.extraData)
+			ed.Debug_Msg("LoginFailed failedcode: "..result.failedcode.." datas:"..result.extraData)
 		elseif subCmd == 7 then
 			--local result = protobuf.decode("client_loginserver.LoginSuccessfully", buffer)
 			local result, err = cl.LoginSuccessfully():Parse(buffer)
-			print("LoginSuccessfully ip: "..result.baseIp)
-			print("LoginSuccessfully port: "..result.basePort)
+			ed.Debug_Msg("LoginSuccessfully ip: "..result.baseIp)
+			ed.Debug_Msg("LoginSuccessfully port: "..result.basePort)
 			serverBaseIp = result.baseIp
 			serverBasePort = result.basePort
 			--连接到base
@@ -187,23 +187,24 @@ function onNetMessage(mainCmd, subCmd, buffer)
 		if subCmd == 2 then
 			--local result = protobuf.decode("client_baseserver.HelloCB", buffer)
 			local result, err = cb.HelloCB():Parse(buffer)
-			print("HelloCB base result: "..result.result)
-			print("HelloCB base version: "..result.version)
-			print("HelloCB base extraData: "..result.extraData)
+			ed.Debug_Msg("HelloCB base result: "..result.result)
+			ed.Debug_Msg("HelloCB base version: "..result.version)
+			ed.Debug_Msg("HelloCB base extraData: "..result.extraData)
 			--ed.dump(result)
 			GameApp.LoginBase(g_accountName, g_password)
 		elseif subCmd == 4 then  --登陆失败
 			--local result = protobuf.decode("client_baseserver.LoginBaseappFailed", buffer)
 			local result, err = cb.LoginBaseappFailed():Parse(buffer)
-			print("LoginBaseappFailed failedcode: "..result.retCode)
+			ed.Debug_Msg("LoginBaseappFailed failedcode: "..result.retCode)
 		elseif subCmd == 5 then  --登陆成功 创建proxy
 			--local result = protobuf.decode("client_baseserver.CreatedProxies", buffer)
 			local result, err = cb.CreatedProxies():Parse(buffer)
 			--ed.dump(result)
-			print("CreatedProxies entityid: "..result.entityID)
+			ed.Debug_Msg("CreatedProxies entityid: "..result.entityID)
 		elseif subCmd == 6 then  --登陆成功 创建proxy
 			--local result = decodeAll("client_baseserver.down_msg", buffer)
 			--ed.dump(result)
+			ed.Debug_Msg("down_msg -----------------------------------")
 			ed.dispatch(buffer)
 		end
 	end

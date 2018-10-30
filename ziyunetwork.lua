@@ -522,26 +522,28 @@ local function dispatch(data)
 
 	local msg, err = downmsg():Parse(data)
 	if not msg then
-		ed.LegendLog("[netword.lua|recv] ERROR | Decode message failed | " .. err)
+		ed.Debug_Msg("[netword.lua|recv] ERROR | Decode message failed | " .. err)
 		return
 	end
 	logString = ""
-	ed.LegendLog("[netword.lua|dispatch] begin------------------!")
+	ed.Debug_Msg("[netword.lua|dispatch] begin------------------!")
 	--var_dump(msg, 2)
 	if msg._login_reply then
-		print("===============login reply==================")
+		ed.Debug_Msg("===============login reply==================")
 
-		ed.LegendLog("[netword.lua|dispatch] _login_reply!")
 		if msg._login_reply._result == "fail" then
+			ed.Debug_Msg("[netword.lua|dispatch] LoginFail!")
 			FireEvent("LoginFail")
 			return
 		end
+		ed.Debug_Msg("[netword.lua|dispatch] _login_reply!")
 		ed.serverTimeZone = tonumber(msg._login_reply._time_zone)
-		local userId = ed.getUserid()
-		local firstLogin = CCUserDefault:sharedUserDefault():getStringForKey(userId)
-		if firstLogin == "" and userId ~= "" then
-			CCUserDefault:sharedUserDefault():setStringForKey(userId, "no")
-		end
+		--local userId = ed.getUserid()
+		--local firstLogin = CCUserDefault:sharedUserDefault():getStringForKey(userId)
+		--if firstLogin == "" and userId ~= "" then
+		--	CCUserDefault:sharedUserDefault():setStringForKey(userId, "no")
+		--end
+		ed.Debug_Msg("loginReply1")
 		local user = msg._login_reply._user
 		--var_dump(user, 3)
 		user_id = user._userid
@@ -560,25 +562,29 @@ local function dispatch(data)
 		if user._sessionid and user._sessionid > 0 then
 			ed.setSessionKey(user._sessionid);
 		end
-		
+		ed.Debug_Msg("loginReply2")
 		ed.player:setup(user)
+		ed.Debug_Msg("loginReply...")
 		ed.setUserid(user_id);
 
+		ed.Debug_Msg("loginReply3")
 		if ed.netreply.loginReply then
+			ed.Debug_Msg("loginReply4")
 			ed.netreply.loginReply()
 			ed.netreply.loginReply = nil
 		end
+		ed.Debug_Msg("loginReply5")
 		FireEvent("LoginSuc")
 		checkLanguageUpdate()
 	end
-	print("---------------------")
+	ed.Debug_Msg("---------------------")
 
 	if msg._system_setting_reply then
-		ed.LegendLog("[netword.lua|dispatch] _system_setting_reply!"..msg._system_setting_reply._change._result)
+		ed.Debug_Msg("[netword.lua|dispatch] _system_setting_reply!"..msg._system_setting_reply._change._result)
 		FireEvent("SystemSettingReply", msg._system_setting_reply)
 	end
 	if msg._reset then
-		ed.LegendLog("[netword.lua|dispatch] _reset!"..msg._reset._user._userid)
+		ed.Debug_Msg("[netword.lua|dispatch] _reset!"..msg._reset._user._userid)
 		if ed.debug_mode then
 		end
 		local user = msg._reset._user
@@ -587,7 +593,7 @@ local function dispatch(data)
 	end
 	
 	if msg._svr_time then
-		ed.LegendLog("[netword.lua|dispatch] _svr_time!")
+		ed.Debug_Msg("[netword.lua|dispatch] _svr_time!")
 		local reply = msg._svr_time
 		ed.player:initNativeTimeDiff(reply)
 		local handler = ed.netreply.syncTime
@@ -597,7 +603,7 @@ local function dispatch(data)
 		end
 	end
 	if msg._enter_stage_reply then
-		ed.LegendLog("[netword.lua|dispatch] _enter_stage_reply!")
+		ed.Debug_Msg("[netword.lua|dispatch] _enter_stage_reply!")
 		if ed.netreply.enterStage then
 			ed.netreply.enterStage()
 			ed.netreply.enterStage = nil

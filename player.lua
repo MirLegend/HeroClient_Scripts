@@ -94,7 +94,7 @@ end
 local function setup(self, data, nobackup)
   self.initialized = true
   self.data = data
-
+  ed.Debug_Msg("setup1 ")
   self.skillbook_qunty = {}
   self.equip_order = {}
   self.equip_qunty = {}
@@ -107,11 +107,14 @@ local function setup(self, data, nobackup)
   else
     self.data._items = {}
   end
+  ed.Debug_Msg("setup2 ")
   resetHeros(self, data)
+  ed.Debug_Msg("setup3 ")
   self:loadStageStars(self._userstage)
   self.stage_limit = {}
   self.stage_reset_times = {}
   self.stage_limit_back_key = {}
+  ed.Debug_Msg("setup4 ")
   if self._userstage._elite_daily_record then
     for k, v in pairs(self._userstage._elite_daily_record) do
       local limit = self:getStageLimitAt(k)
@@ -122,8 +125,10 @@ local function setup(self, data, nobackup)
   else
     self._userstage._elite_daily_record = {}
   end
+  ed.Debug_Msg("setup5 ")
   self:initNativeTimeDiff(self._last_login)
-  ed.localnotify.init()
+  --ed.localnotify.init()
+  ed.Debug_Msg("setup6 ")
   self._task = self._task or {}
 end
 class.setup = setup
@@ -204,7 +209,9 @@ end
 class.checkRechargeItemValid = checkRechargeItemValid
 local function initNativeTimeDiff(self, serverTime)
   serverTime = serverTime or 0
+  ed.Debug_Msg("initNativeTimeDiff1 "..serverTime)
   local time = ed.getSystemTime()
+  ed.Debug_Msg("initNativeTimeDiff2 ")
   self.time_diff = serverTime - time
   if serverTime == 0 then
     self.time_diff = 0
