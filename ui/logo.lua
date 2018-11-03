@@ -167,7 +167,7 @@ local autoLogin = function(self)
 end
 class.autoLogin = autoLogin
 local createConnecting = function(self)
-  self:refreshExplanation(T(LSTR("LOGO.CONNECTING_TO_SERVER_PLEASE_WAIT……")))
+  --self:refreshExplanation(T(LSTR("LOGO.CONNECTING_TO_SERVER_PLEASE_WAIT……")))
   self.autoLoginID = self.mainLayer:getScheduler():scheduleScriptFunc(self:autoLogin(), 0, false)
 end
 class.createConnecting = createConnecting
@@ -304,11 +304,6 @@ local function createExplanation(self)
   self:refreshDescri()
   self.loadIconRotateID = self.mainLayer:getScheduler():scheduleScriptFunc(self:rotateFlower(), 0, false)
 end
-
-
-
-
-
 class.createExplanation = createExplanation
 local refreshDescri = function(self)
   self:refreshLoadIconPos()
@@ -346,9 +341,9 @@ local function create(sessionId)
   local logo = ed.createSprite("installer/logo.png")
   logo:setPosition(ccp(170, 402))
   mainLayer:addChild(logo)
-  self:createBar()
-  self:createExplanation()
-  self:hideBar()
+  --self:createBar()
+  --self:createExplanation()
+  --self:hideBar()
 
   --if auto_update_switch then
     --    if LegendPlatformFLAG==ed.PlatformCode.CC_PLATFORM_ANDROID then
@@ -366,7 +361,7 @@ local function create(sessionId)
     self:createConnecting()
  -- end
   self.count = 0
-  self:registerUpdateHandler("logo", self:updateLogo())
+  --self:registerUpdateHandler("logo", self:updateLogo())
 
   local latestVersion = T(LSTR("SERVERLOGIN.VERSION_")) ..SeverConsts:getInstance():getBaseVersion()
   local versionLable = ed.createttf(latestVersion, 15)

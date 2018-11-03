@@ -3,11 +3,8 @@ local c = require "ZiYuServer"
 local cb = pb_loader("cb")()
 local cl = pb_loader("cl")()
 local hellocb = cl.HelloCB
---local downmsg = down.down_msg
 
 GameApp = GameApp or {}
-
---ed.protobuf = protobuf
 ed.GameApp =GameApp
 
 local serverIp = "127.0.0.1"
@@ -23,6 +20,10 @@ local curserver = 1 --login
 
 local bConnected = false --是否连接到服务器
 
+local tryConnectCounts = 0  --重连次数
+
+local pingTimerId = nil  --服务器心跳定时器
+
 --注册pb文件
 function GameApp.InitPb()
 	local pbFilePath = "./data/cl.pb"
@@ -36,23 +37,27 @@ function GameApp.InitPb()
     
     buffer = read_protobuf_file_c(pbbaseFilePath)
     protobuf.register(buffer) --注:protobuf 是因为在protobuf.lua里面使用module(protobuf)来修改全局名字
-
-    --local pbupFilePath = "./data/up.pb"
-    --print("InitPb file path: "..pbbaseFilePath)
-    
-    --buffer = read_protobuf_file_c(pbupFilePath)
-    --protobuf.register(buffer) --注:protobuf 是因为在protobuf.lua里面使用module(protobuf)来修改全局名字
 end
 
 function GameApp.loginServer(account, pwd)
-	g_accountName = account;
+	g_accountName = account
 	g_password = pwd
 	curserver = 1
+	ed.loadBegin()
 	GameApp.connectServer(ed.loginip, ed.loginport)
 end
 
+function GameApp.reConnectServer()
+	local ret, err = c.ziyu_connect(serverIp, serverPort)
+	ed.Debug_Msg("reConnectServer ip:"..serverIp)
+	if not ret then
+		ed.Debug_Msg("reConnectServer error!!  can not connect to "..serverIp.." port:"..serverPort)
+		return
+	end
+end
+
 function GameApp.connectServer(ip, port)
-	serverIp = ip;
+	serverIp = ip
 	serverPort = port
 	local ret, err = c.ziyu_connect(ip, port)
 	ed.Debug_Msg("connectServer ip:"..ip)
@@ -65,16 +70,6 @@ end
 local clientversion = 51
 
 function GameApp.Hello()
-	
-	--local stringbuffer = protobuf.encode("client_loginserver.Hello",      
-    --    {         
-    --        version = clientversion,      
-    --        extraData = "helloziyu"     
-    --    })
-	--local slen = string.len(stringbuffer)
-    --print("Hello slen ========= "..slen)
-	--c.ziyu_send(90, 1, stringbuffer)
-
 	local msg = cl.Hello()
 	msg.version = clientversion
 	msg.extraData = "helloziyu"
@@ -119,15 +114,14 @@ function GameApp.LoginBase(loginName, password)
 	local code, err = msg:Serialize()
 
 	GameApp.SendMsg(91, 3, code)
-	
 end
-
 
 --有待优化 存入registry中
 function onConnected()
 	ed.Debug_Msg("lua =============  onConnected curser: "..curserver)
 	bConnected = true
-	
+	tryConnectCounts = 0
+	ed.loadEnd()
 	--连接后 第一步是hello下
 	if curserver == 1 then
 		GameApp.Hello()
@@ -140,16 +134,55 @@ end
 function onConnectedFail()
 	ed.Debug_Msg("lua =============  onConnectedFail")
 	bConnected = false
+	if tryConnectCounts > 5 then
+		
+		tryConnectCounts = 0
+		print("ConnectedFail ---------------------- ")
+		FireEvent("SendMsgFail")
+	else
+		tryConnectCounts =tryConnectCounts + 1
+		FireEvent("ConnectedFail")
+    end
 end
 
 --有待优化 存入registry中
 function onConnectedClosed()
 	ed.Debug_Msg("lua =============  onConnectedClosed")
 	bConnected = false
+	if pingTimerId then
+		CCDirector:sharedDirector():getScheduler():unscheduleScriptEntry(pingTimerId)
+		pingTimerId = nil
+	end
 end
 
 function GameApp.RecvNetMessage()
 	c.ziyu_update()
+end
+
+function doPingPong()
+	if not connection then
+		return
+	end
+
+	local nowTime = ed.getSystemTime()
+	LegendLog("[network.lua|doPingProxy]  doPingProxy : " .. nowTime)
+	local passTime = nowTime - lastHeartBeatTime
+	if (passTime >= lostConnectInterval) then
+		close()
+		return
+	end
+
+	nowTime = nowTime * 1000
+	sz = XPACKET_SendPing:_Size(nowTime);
+	buf = string.rep("a", sz);
+	ret = XPACKET_SendPing:_ToBuffer(buf, sz, nowTime);
+	--LegendLog(print_bytes(buf))
+
+	local r1, r2 = ziyu.send(myip, myport, buf)--connection:send(buf)
+	if not r1 then
+		ed.showToast(T(LSTR("NETWORK.SENDING_FAILED_PLEASE_CHECK_THE_NETWORK_SETTING")))
+		close()
+	end
 end
 
 --有待优化 存入registry中
@@ -201,6 +234,9 @@ function onNetMessage(mainCmd, subCmd, buffer)
 			local result, err = cb.CreatedProxies():Parse(buffer)
 			--ed.dump(result)
 			ed.Debug_Msg("CreatedProxies entityid: "..result.entityID)
+			if not pingTimerId then
+				pingTimerId = CCDirector:sharedDirector():getScheduler():scheduleScriptFunc(doPingPong, 60, false)
+			end
 		elseif subCmd == 6 then  --登陆成功 创建proxy
 			--local result = decodeAll("client_baseserver.down_msg", buffer)
 			--ed.dump(result)

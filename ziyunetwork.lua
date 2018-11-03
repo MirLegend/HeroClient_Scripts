@@ -1,18 +1,7 @@
 local ed = ed
 require "GameAPP"
 require("config")
---require("mycrypto")
---local ziyu = require "ZiYuServer"
---local connect = socket.connect
---local connection
---local connect_succ = false
---local close
---local bSendblock = false
---local currentMsg, currentMsgType
---local up = pb_loader("up")()
---local down = pb_loader("down")()
---local upmsg = up.up_msg
---local downmsg = down.down_msg
+
 local insert = table.insert
 local ipairs = ipairs
 local tostring = tostring;
@@ -117,6 +106,7 @@ function doPingProxy()
 	GameApp.doPingProxy()
 end
 
+local bReconnect=false
 local function load(noflower, bReSend)
 	local count = 0
 	local countRotate = 0
@@ -149,15 +139,18 @@ local function load(noflower, bReSend)
 		layer:addChild(bg, 9)
 		bg:setPosition(ccp(393, 238))
 		bg:setContentSize(CCSizeMake(180, 60))
+		print("createFlower ---------------------- ")
 	end
 	local function handler(dt)
 		dt = dt or 0
-		count = count + dt
 		countRotate = countRotate + dt
-		if count > 16 and resend then
-			loadFunc.loadEnd()
-			close()
-			FireEvent("SendMsgFail")
+		if bReconnect then
+			count = count + dt
+			if resend and count > 3 then
+				print("reconnect to server----------------- ")
+				count = 0
+				GameApp.reConnectServer()
+			end
 		end
 		if noflower then
 			return
@@ -166,10 +159,10 @@ local function load(noflower, bReSend)
 		if isLoading and tolua.isnull(loadLayer.layer) then
 			return
 		end
-		if count > 1.0 then
+		--if count > 0.01 then
 			createFlower(scene)
 			isLoading = true
-		end
+		--end
 		if countRotate > count_gap then
 			local flower = loadLayer.flower
 			if not tolua.isnull(flower) then
@@ -183,7 +176,9 @@ end
 
 local function loadBegin(noflower, bReSend)
 	loadFunc.loadEnd()
+	print("loadBegin ---------------------- ")
 	if not loadLayer.id then
+
 		local loading = load(noflower, bReSend)
 		local scene = CCDirector:sharedDirector():getRunningScene()
 		if not tolua.isnull(scene) then
@@ -196,6 +191,9 @@ loadFunc.loadBegin = loadBegin
 ed.loadBegin = loadBegin
 
 local function loadEnd()
+	print("loadEnd ---------------------- ")
+	print( debug.traceback() )
+	bReconnect = false
 	if loadLayer.id then
 		loadLayer.scheduler:unscheduleScriptEntry(loadLayer.id)
 		loadLayer.id = nil
@@ -331,6 +329,21 @@ end
 
 local function kickOutProcess()
 	local text = T(LSTR("KICKOUT.NOTICE"))
+	local info = {
+		--text = text .. ":" .. cryptkey,
+		text = text,
+		buttonText = T(LSTR("ERRORNET.RETRY")),
+		handler = function()
+			xpcall(function()
+				LegendRestartApplication()
+			end, EDDebug)
+		end
+	}
+	ed.showAlertDialog(info)
+end
+
+local function ConnetTimeOutProcess()
+	local text = T(LSTR("ERRORNET.PLEASE_RETRY_ONCE_THE_NETWORK_IS_CONFIRMED_AS_FIXED"))
 	local info = {
 		--text = text .. ":" .. cryptkey,
 		text = text,
@@ -1455,23 +1468,17 @@ end
 ed.dispatch = dispatch
 
 local function OnSendMsgFail()
-	--联网失败啊
-	if reConnectTimes==nil then
-		reConnectTimes=0
-	end
-	reConnectTimes=reConnectTimes+1
-	if reConnectTimes<2 then
-		errorNet.showError(reSend)
-	elseif reConnectTimes < 8 then--add by xinghui:显示停服公告
-		serverInUpdate()
-	else
-		reConnectTimes=0
-		--去登录页面
-		ed.replaceScene(ed.ui.platformlogo.create())
-	end
-
+	print("OnSendMsgFail......................")
+	ed.loadEnd()
+	ConnetTimeOutProcess()
 end
 ListenEvent("SendMsgFail", OnSendMsgFail)
+
+local function OnConnectedFail()
+	bReconnect = true
+	print("ConnectedFail11111111111111111")
+end
+ListenEvent("ConnectedFail", OnConnectedFail)
 
 function ziNetWorkInit()
 	print("ziNetWorkInit!")
